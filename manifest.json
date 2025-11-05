@@ -1,13 +1,13 @@
 {
   "id": "./",
-  "name": "PWA Template Responsif",
-  "short_name": "PWA Demo",
-  "description": "Aplikasi PWA responsif untuk demonstrasi template dasar Progressive Web App dengan dukungan offline dan installable.",
+  "name": "Ilyn",
+  "short_name": "Ilyn",
+  "description": "Ilyn adalah aplikasi fashion muslim modern yang menghadirkan koleksi busana elegan, modest, dan penuh inspirasi untuk pria dan wanita mulle mata kini. Dengan slogan Elegansi Muslin, Inspirasi Ilyn, Ilyn mengusung konsep gaya yang selaras dengan nilai, serta keindahan yang berpadu dengan kesederhanaan.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#4F46E5",
-  "theme_color": "#4F46E5",
+  "background_color": "##007575",
+  "theme_color": "#DBB459",
   "orientation": "portrait",
   "lang": "id",
   "icons": [
