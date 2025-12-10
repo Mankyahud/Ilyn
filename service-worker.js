@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-template-v2";
+const CACHE_NAME = "Ilyn";
 const BASE_URL = self.registration.scope;
 
 const urlsToCache = [
@@ -7,8 +7,8 @@ const urlsToCache = [
   `${BASE_URL}offline.html`,
   `${BASE_URL}assets/style.css`,
   `${BASE_URL}manifest.json`,
-  `${BASE_URL}icons/icon-192x192.png`,
-  `${BASE_URL}icons/icon-512x512.png`,
+  `${BASE_URL}icons/logo android 512 x 512.png`,
+  `${BASE_URL}icons/logo versi android 192 x 192.png`,
 ];
 
 // Install Service Worker & simpan file ke cache
