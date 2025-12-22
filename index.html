@@ -1,48 +1,1017 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#4F46E5" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" />
-  <title>PWA Template Responsif</title>
-  <link rel="stylesheet" href="assets/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#A1BC98">
+    <meta name="description" content="Elegansi Muslim, Inspirasi Ilyn">
+    <title>Ilyn - Fashion Muslim Modern</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    
+    <style>
+        :root {
+            --primary-color: #A1BC98;
+            --search-color: #FEF3E2;
+            --layout-color: #E3DFC8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-color);
+            overflow-x: hidden;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #8fa884 100%);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .search-bar {
+            background-color: var(--search-color);
+            border-radius: 25px;
+            padding: 0.7rem 1.2rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            outline: none;
+            color: #333;
+        }
+        
+        .search-bar input::placeholder {
+            color: #999;
+        }
+        
+        .search-suggestions {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .suggestion-item {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+        
+        .suggestion-item:hover {
+            background-color: var(--layout-color);
+        }
+        
+        .main-content {
+            background-color: var(--layout-color);
+            min-height: calc(100vh - 180px);
+            border-radius: 30px 30px 0 0;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .filter-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            margin: 0.3rem;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active {
+            background-color: #7a9a6f;
+            transform: scale(1.05);
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #d4d4d4, #f0f0f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #999;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .price-tag {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .notification-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .notification-item.unread {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .store-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .store-distance {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 0.5rem 0;
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            text-align: center;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-item i {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        
+        .nav-item span {
+            font-size: 0.75rem;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.7rem 2rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary-custom:hover {
+            background-color: #8fa884;
+            transform: scale(1.05);
+        }
+        
+        .install-prompt {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .install-prompt.show {
+            display: block;
+        }
+    </style>
 </head>
-
 <body>
-  <header class="header">
-    <h1>PWA Template</h1>
-    <p>Contoh aplikasi web progresif yang responsif</p>
-  </header>
+    <!-- App Header -->
+    <div class="app-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="logo">ILYN</div>
+                    <div class="tagline">Elegansi Muslim, Inspirasi Ilyn</div>
+                </div>
+                <div class="position-relative">
+                    <i class="bi bi-bell-fill" style="font-size: 1.5rem; cursor: pointer;" onclick="showPage('notifications')"></i>
+                    <span class="notification-badge" id="notifBadge">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <main class="main">
-    <section class="card">
-      <h2>Selamat Datang!</h2>
-      <p>
-        Ini adalah template PWA responsif. Kamu bisa ubah teks, warna, dan layout-nya sesuai kebutuhan.
-      </p>
-      <button onclick="alert('PWA aktif!')">Tes Tombol</button>
-    </section>
-  </main>
-  <button onclick="alert('tombol testing hidup')">Ini tombol 1</button>
+    <!-- Main Container -->
+    <div class="container pb-5 mb-5">
+        <!-- Install Prompt -->
+        <div class="install-prompt" id="installPrompt">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="bi bi-download"></i> Install Ilyn untuk pengalaman lebih baik
+                </div>
+                <button class="btn btn-light btn-sm" onclick="installApp()">Install</button>
+            </div>
+        </div>
 
-  <footer class="footer">
-    <p>© 2025 Anwar Fauzi</p>
-  </footer>
+        <!-- Search Page -->
+        <div id="searchPage" class="page">
+            <div class="search-bar">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-search me-2"></i>
+                    <input type="text" id="searchInput" placeholder="Cari produk, kategori..." onkeyup="handleSearch()">
+                </div>
+            </div>
+            <div class="search-suggestions" id="searchSuggestions"></div>
+            <div id="searchResults"></div>
+        </div>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then(() => console.log('SW registered!'))
-        .catch(err => console.error('SW gagal:', err));
-    }
-  </script>
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <div class="search-bar" onclick="showPage('search')">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-search me-2"></i>
+                    <input type="text" placeholder="Cari produk, kategori..." readonly style="pointer-events: none;">
+                </div>
+            </div>
 
+            <div class="main-content">
+                <h5 class="mb-3 fw-bold">Kategori Produk</h5>
+                <div class="row">
+                    <div class="col-6" onclick="selectCategory('pria')">
+                        <div class="category-card text-center">
+                            <div class="category-icon">👔</div>
+                            <h6 class="fw-bold">Pria</h6>
+                            <small class="text-muted">Koleksi Muslim Pria</small>
+                        </div>
+                    </div>
+                    <div class="col-6" onclick="selectCategory('wanita')">
+                        <div class="category-card text-center">
+                            <div class="category-icon">👗</div>
+                            <h6 class="fw-bold">Wanita</h6>
+                            <small class="text-muted">Koleksi Muslimah</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Section -->
+                <div class="filter-section mt-4">
+                    <h6 class="fw-bold mb-3">Filter Produk</h6>
+                    
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Ukuran</label>
+                        <div>
+                            <button class="filter-btn" onclick="toggleFilter('size', 'S')">S</button>
+                            <button class="filter-btn" onclick="toggleFilter('size', 'M')">M</button>
+                            <button class="filter-btn" onclick="toggleFilter('size', 'L')">L</button>
+                            <button class="filter-btn" onclick="toggleFilter('size', 'XL')">XL</button>
+                            <button class="filter-btn" onclick="toggleFilter('size', 'XXL')">XXL</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Rentang Harga</label>
+                        <div>
+                            <button class="filter-btn" onclick="toggleFilter('price', '0-200')">< 200k</button>
+                            <button class="filter-btn" onclick="toggleFilter('price', '200-500')">200k - 500k</button>
+                            <button class="filter-btn" onclick="toggleFilter('price', '500-1000')">500k - 1jt</button>
+                            <button class="filter-btn" onclick="toggleFilter('price', '1000+')"> > 1jt</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div id="productList">
+                    <h5 class="mb-3 fw-bold">Produk Pilihan</h5>
+                    <div class="row" id="productsContainer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Page -->
+        <div id="notificationsPage" class="page">
+            <div class="main-content">
+                <h5 class="mb-3 fw-bold">Notifikasi</h5>
+                <div id="notificationsList"></div>
+            </div>
+        </div>
+
+        <!-- Stores Page -->
+        <div id="storesPage" class="page">
+            <div class="main-content">
+                <h5 class="mb-3 fw-bold">Lokasi Toko Offline</h5>
+                <div id="storesList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="container">
+            <div class="row">
+                <div class="col nav-item active" onclick="showPage('home')">
+                    <i class="bi bi-house-fill"></i>
+                    <span>Beranda</span>
+                </div>
+                <div class="col nav-item" onclick="showPage('search')">
+                    <i class="bi bi-search"></i>
+                    <span>Cari</span>
+                </div>
+                <div class="col nav-item" onclick="showPage('stores')">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <span>Toko</span>
+                </div>
+                <div class="col nav-item" onclick="showPage('notifications')">
+                    <i class="bi bi-bell-fill"></i>
+                    <span>Notifikasi</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Data produk
+        const products = [
+            {id: 1, name: 'Gamis Elegant Series', category: 'wanita', price: 350000, size: ['S', 'M', 'L', 'XL'], image: '👗'},
+            {id: 2, name: 'Kemeja Koko Premium', category: 'pria', price: 280000, size: ['M', 'L', 'XL', 'XXL'], image: '👔'},
+            {id: 3, name: 'Hijab Pashmina Silk', category: 'wanita', price: 150000, size: ['One Size'], image: '🧕'},
+            {id: 4, name: 'Sarung Atlas Signature', category: 'pria', price: 450000, size: ['One Size'], image: '🕌'},
+            {id: 5, name: 'Dress Muslim Casual', category: 'wanita', price: 320000, size: ['S', 'M', 'L'], image: '👗'},
+            {id: 6, name: 'Jubah Saudi Premium', category: 'pria', price: 550000, size: ['L', 'XL', 'XXL'], image: '🕌'},
+            {id: 7, name: 'Tunik Modern Chic', category: 'wanita', price: 250000, size: ['M', 'L', 'XL'], image: '👚'},
+            {id: 8, name: 'Celana Sirwal Nyaman', category: 'pria', price: 180000, size: ['M', 'L', 'XL', 'XXL'], image: '👖'}
+        ];
+
+        // Data notifikasi
+        let notifications = [
+            {id: 1, title: 'Koleksi Baru!', message: 'Gamis Elegant Series sudah tersedia', read: false, link: 'home'},
+            {id: 2, title: 'Diskon 30%', message: 'Kemeja Koko Premium harga spesial hari ini', read: false, link: 'home'},
+            {id: 3, title: 'Toko Baru', message: 'Cabang baru dibuka di Jakarta Selatan', read: true, link: 'stores'}
+        ];
+
+        // Data toko
+        const stores = [
+            {id: 1, name: 'Ilyn Jakarta Pusat', address: 'Jl. Thamrin No. 10, Jakarta Pusat', phone: '021-12345678', lat: -6.1944, lng: 106.8229},
+            {id: 2, name: 'Ilyn Bandung', address: 'Jl. Asia Afrika No. 15, Bandung', phone: '022-87654321', lat: -6.9175, lng: 107.6191},
+            {id: 3, name: 'Ilyn Surabaya', address: 'Jl. Tunjungan No. 20, Surabaya', phone: '031-98765432', lat: -7.2575, lng: 112.7521}
+        ];
+
+        // State management
+        let currentPage = 'home';
+        let filters = {
+            category: null,
+            size: null,
+            price: null
+        };
+        let userLocation = null;
+
+        // Initialize app
+        function init() {
+            loadPreferences();
+            renderProducts();
+            renderNotifications();
+            renderStores();
+            updateNotificationBadge();
+            requestLocation();
+            
+            // Animate on load
+            anime({
+                targets: '.category-card',
+                translateY: [50, 0],
+                opacity: [0, 1],
+                delay: anime.stagger(100),
+                duration: 800,
+                easing: 'easeOutExpo'
+            });
+
+            // Check if app can be installed
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                window.deferredPrompt = e;
+                document.getElementById('installPrompt').classList.add('show');
+            });
+        }
+
+        // Page navigation
+        function showPage(page) {
+            currentPage = page;
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(page + 'Page').classList.add('active');
+            document.querySelectorAll('.nav-item')[
+                ['home', 'search', 'stores', 'notifications'].indexOf(page)
+            ].classList.add('active');
+
+            // Animate page transition
+            anime({
+                targets: `#${page}Page`,
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 500,
+                easing: 'easeOutQuad'
+            });
+
+            if (page === 'search') {
+                setTimeout(() => document.getElementById('searchInput').focus(), 300);
+            }
+        }
+
+        // Filter functions
+        function selectCategory(category) {
+            filters.category = category;
+            savePreferences();
+            renderProducts();
+            
+            anime({
+                targets: '.product-card',
+                scale: [0.8, 1],
+                opacity: [0, 1],
+                delay: anime.stagger(50),
+                duration: 500,
+                easing: 'easeOutExpo'
+            });
+        }
+
+        function toggleFilter(type, value) {
+            if (filters[type] === value) {
+                filters[type] = null;
+            } else {
+                filters[type] = value;
+            }
+            
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.textContent.trim() === value) {
+                    btn.classList.toggle('active');
+                }
+            });
+            
+            savePreferences();
+            renderProducts();
+        }
+
+        // Render products
+        function renderProducts() {
+            let filtered = products.filter(p => {
+                if (filters.category && p.category !== filters.category) return false;
+                if (filters.size && !p.size.includes(filters.size)) return false;
+                if (filters.price) {
+                    const [min, max] = filters.price.split('-').map(v => parseInt(v) * 1000 || Infinity);
+                    if (p.price < min || p.price > max) return false;
+                }
+                return true;
+            });
+
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = filtered.map(p => `
+                <div class="col-md-6 product-card-wrapper">
+                    <div class="product-card">
+                        <div class="product-image">${p.image}</div>
+                        <div class="product-info">
+                            <h6 class="fw-bold mb-2">${p.name}</h6>
+                            <p class="text-muted small mb-2">Ukuran: ${p.size.join(', ')}</p>
+                            <div class="price-tag">Rp ${p.price.toLocaleString('id-ID')}</div>
+                            <button class="btn btn-primary-custom w-100 mt-2">
+                                <i class="bi bi-cart-plus"></i> Tambah
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search functionality
+        const searchData = [
+            'Gamis', 'Kemeja Koko', 'Hijab', 'Sarung', 'Dress Muslim', 
+            'Jubah', 'Tunik', 'Celana Sirwal', 'Pria', 'Wanita'
+        ];
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const suggestions = document.getElementById('searchSuggestions');
+            
+            if (query.length > 0) {
+                const matches = searchData.filter(item => 
+                    item.toLowerCase().includes(query)
+                );
+                
+                suggestions.innerHTML = matches.map(item => `
+                    <div class="suggestion-item" onclick="selectSuggestion('${item}')">
+                        <i class="bi bi-search me-2"></i> ${item}
+                    </div>
+                `).join('');
+                suggestions.classList.add('active');
+                
+                // Show search results
+                const results = products.filter(p => 
+                    p.name.toLowerCase().includes(query)
+                );
+                
+                document.getElementById('searchResults').innerHTML = results.length > 0 ? `
+                    <div class="main-content mt-3">
+                        <h6 class="fw-bold mb-3">Hasil Pencarian (${results.length})</h6>
+                        <div class="row">
+                            ${results.map(p => `
+                                <div class="col-12 col-md-6 mb-3">
+                                    <div class="product-card">
+                                        <div class="product-image">${p.image}</div>
+                                        <div class="product-info">
+                                            <h6 class="fw-bold">${p.name}</h6>
+                                            <div class="price-tag">Rp ${p.price.toLocaleString('id-ID')}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : '<div class="main-content mt-3"><p class="text-muted">Tidak ada hasil</p></div>';
+            } else {
+                suggestions.classList.remove('active');
+                document.getElementById('searchResults').innerHTML = '';
+            }
+        }
+
+        function selectSuggestion(item) {
+            document.getElementById('searchInput').value = item;
+            handleSearch();
+        }
+
+        // Notifications
+        function renderNotifications() {
+            const container = document.getElementById('notificationsList');
+            container.innerHTML = notifications.map(n => `
+                <div class="notification-item ${n.read ? '' : 'unread'}" onclick="openNotification(${n.id})">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="fw-bold mb-1">${n.title}</h6>
+                            <p class="text-muted small mb-0">${n.message}</p>
+                        </div>
+                        ${!n.read ? '<i class="bi bi-circle-fill text-primary" style="font-size: 0.5rem;"></i>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openNotification(id) {
+            const notif = notifications.find(n => n.id === id);
+            if (notif) {
+                notif.read = true;
+                updateNotificationBadge();
+                renderNotifications();
+                showPage(notif.link);
+            }
+        }
+
+        function updateNotificationBadge() {
+            const unread = notifications.filter(n => !n.read).length;
+            const badge = document.getElementById('notifBadge');
+            badge.textContent = unread;
+            badge.style.display = unread > 0 ? 'flex' : 'none';
+        }
+
+        // Stores with location
+        function requestLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        renderStores();
+                    },
+                    () => {
+                        console.log('Location access denied');
+                    }
+                );
+            }
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius bumi dalam km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                     Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function renderStores() {
+            const container = document.getElementById('storesList');
+            const storesWithDistance = stores.map(s => {
+                const distance = userLocation ? 
+                    calculateDistance(userLocation.lat, userLocation.lng, s.lat, s.lng) : null;
+                return {...s, distance};
+            }).sort((a, b) => (a.distance || 999) - (b.distance || 999));
+
+            container.innerHTML = storesWithDistance.map(s => `
+                <div class="store-card">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="fw-bold mb-0">${s.name}</h6>
+                        ${s.distance ? `<span class="store-distance">${s.distance.toFixed(1)} km</span>` : ''}
+                    </div>
+                    <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> ${s.address}</p>
+                    <p class="text-muted small mb-3"><i class="bi bi-telephone"></i> ${s.phone}</p>
+                    <button class="btn btn-primary-custom btn-sm" onclick="openMaps(${s.lat}, ${s.lng})">
+                        <i class="bi bi-map"></i> Buka di Maps
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function openMaps(lat, lng) {
+            window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
+        }
+
+        // Storage functions - using object storage instead of localStorage
+        let preferencesData = null;
+
+        function savePreferences() {
+            preferencesData = {...filters};
+        }
+
+        function loadPreferences() {
+            if (preferencesData) {
+                filters = {...preferencesData};
+                // Update UI berdasarkan preferensi tersimpan
+                Object.keys(filters).forEach(key => {
+                    if (filters[key]) {
+                        const btn = Array.from(document.querySelectorAll('.filter-btn'))
+                            .find(b => b.textContent.trim() === filters[key]);
+                        if (btn) btn.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // PWA Install
+        function installApp() {
+            const promptEvent = window.deferredPrompt;
+            if (!promptEvent) return;
+            
+            promptEvent.prompt();
+            promptEvent.userChoice.then((result) => {
+                if (result.outcome === 'accepted') {
+                    document.getElementById('installPrompt').classList.remove('show');
+                }
+                window.deferredPrompt = null;
+            });
+        }
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'ilyn-v1';
+                    const urlsToCache = [
+                        '/',
+                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css',
+                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css',
+                        'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js',
+                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => response || fetch(event.request))
+                        );
+                    });
+
+                    self.addEventListener('activate', (event) => {
+                        event.waitUntil(
+                            caches.keys().then((cacheNames) => {
+                                return Promise.all(
+                                    cacheNames.map((cacheName) => {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+
+        // Create manifest dynamically
+        const manifest = {
+            name: 'Ilyn - Fashion Muslim Modern',
+            short_name: 'Ilyn',
+            description: 'Elegansi Muslim, Inspirasi Ilyn',
+            start_url: '/',
+            display: 'standalone',
+            background_color: '#A1BC98',
+            theme_color: '#A1BC98',
+            orientation: 'portrait',
+            icons: [
+                {
+                    src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%23A1BC98" width="200" height="200"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="80" fill="white" font-family="Arial, sans-serif" font-weight="bold">ILYN</text></svg>',
+                    sizes: '192x192',
+                    type: 'image/svg+xml',
+                    purpose: 'any maskable'
+                },
+                {
+                    src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect fill="%23A1BC98" width="512" height="512"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="200" fill="white" font-family="Arial, sans-serif" font-weight="bold">ILYN</text></svg>',
+                    sizes: '512x512',
+                    type: 'image/svg+xml',
+                    purpose: 'any maskable'
+                }
+            ]
+        };
+
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Add animation to filter buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                anime({
+                    targets: e.target,
+                    scale: [1, 0.95, 1],
+                    duration: 300,
+                    easing: 'easeOutElastic(1, .5)'
+                });
+            }
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add touch feedback
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.classList.contains('category-card') || 
+                e.target.classList.contains('product-card') ||
+                e.target.classList.contains('notification-item') ||
+                e.target.classList.contains('store-card')) {
+                e.target.style.transform = 'scale(0.98)';
+            }
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (e.target.classList.contains('category-card') || 
+                e.target.classList.contains('product-card') ||
+                e.target.classList.contains('notification-item') ||
+                e.target.classList.contains('store-card')) {
+                e.target.style.transform = 'scale(1)';
+            }
+        });
+
+        // Prevent default pull-to-refresh on mobile
+        document.body.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 1 || document.body.scrollTop !== 0) {
+                return;
+            }
+            e.preventDefault();
+        }, { passive: false });
+
+        // Auto-hide address bar on mobile
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                window.scrollTo(0, 1);
+            }, 0);
+        });
+
+        // Add entrance animation for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anime({
+                        targets: entry.target,
+                        translateY: [30, 0],
+                        opacity: [0, 1],
+                        duration: 600,
+                        easing: 'easeOutQuad'
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards after they're rendered
+        setTimeout(() => {
+            document.querySelectorAll('.product-card, .store-card, .notification-item').forEach(card => {
+                observer.observe(card);
+            });
+        }, 100);
+
+        // Add loading state simulation
+        function showLoading() {
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(161, 188, 152, 0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                color: white;
+                font-size: 1.5rem;
+            `;
+            loadingOverlay.innerHTML = '<div><i class="bi bi-arrow-repeat" style="animation: spin 1s linear infinite;"></i> Memuat...</div>';
+            document.body.appendChild(loadingOverlay);
+
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                loadingOverlay.style.transition = 'opacity 0.3s';
+                setTimeout(() => loadingOverlay.remove(), 300);
+            }, 800);
+        }
+
+        // Add spin animation for loading
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Show loading on page transitions
+        const originalShowPage = showPage;
+        showPage = function(page) {
+            if (page !== currentPage) {
+                showLoading();
+                setTimeout(() => originalShowPage(page), 300);
+            }
+        };
+
+        // Add welcome animation
+        window.addEventListener('load', () => {
+            anime({
+                targets: '.app-header',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 800,
+                easing: 'easeOutExpo'
+            });
+        });
+
+        console.log('🕌 Ilyn PWA - Fashion Muslim Modern');
+        console.log('✨ Elegansi Muslim, Inspirasi Ilyn');
+    </script>
 </body>
-
-</html>
+  </html>
