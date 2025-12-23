@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#A1BC98">
-    <meta name="description" content="Elegansi Muslim, Inspirasi Ilyn">
-    <title>Ilyn - Fashion Muslim Modern</title>
+    <title>Ilyn - Elegansi Muslim, Inspirasi Ilyn</title>
+    
     
     <!-- Bootstrap 5 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="icons/logo ilyn versi android 512 x 512.png.jpeg" rel="icon">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 7 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Anime.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
@@ -20,8 +24,10 @@
     <style>
         :root {
             --primary-color: #A1BC98;
-            --search-color: #FEF3E2;
+            --secondary-color: #e4dcdc;
             --layout-color: #E3DFC8;
+            --dark-text: #2d3436;
+            --light-text: #636e72;
         }
         
         * {
@@ -31,225 +37,305 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--primary-color);
+            color: var(--dark-text);
             overflow-x: hidden;
         }
         
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+        
+        /* Header */
         .app-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #8fa884 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #8DAA82 100%);
             color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-        
-        .tagline {
-            font-size: 0.85rem;
-            opacity: 0.9;
+        .slogan {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
             font-style: italic;
+            opacity: 0.9;
+            letter-spacing: 1px;
         }
         
-        .search-bar {
-            background-color: var(--search-color);
-            border-radius: 25px;
-            padding: 0.7rem 1.2rem;
-            margin: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        /* Search Bar */
+        .search-container {
+            background-color: var(--secondary-color);
+            border-radius: 50px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 20px 15px;
         }
         
-        .search-bar input {
+        .search-input {
             border: none;
             background: transparent;
             width: 100%;
             outline: none;
-            color: #333;
+            font-size: 0.95rem;
+            color: var(--dark-text);
         }
         
-        .search-bar input::placeholder {
-            color: #999;
+        /* Main Content */
+        .main-content {
+            min-height: calc(100vh - 180px);
+            padding-bottom: 80px;
         }
         
-        .search-suggestions {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            max-height: 300px;
-            overflow-y: auto;
+        .page {
             display: none;
+            animation: fadeIn 0.5s ease-in-out;
         }
         
-        .search-suggestions.active {
+        .page.active {
             display: block;
         }
         
-        .suggestion-item {
-            padding: 0.8rem 1rem;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background 0.2s;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .suggestion-item:hover {
-            background-color: var(--layout-color);
-        }
-        
-        .main-content {
-            background-color: var(--layout-color);
-            min-height: calc(100vh - 180px);
-            border-radius: 30px 30px 0 0;
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .category-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
-        .category-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .filter-section {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-        
-        .filter-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            margin: 0.3rem;
-            transition: all 0.3s;
-        }
-        
-        .filter-btn.active {
-            background-color: #7a9a6f;
-            transform: scale(1.05);
-        }
-        
+        /* Product Card */
         .product-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
         }
         
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
         .product-image {
             width: 100%;
             height: 250px;
-            background: linear-gradient(135deg, #d4d4d4, #f0f0f0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #999;
+            object-fit: cover;
+            background: var(--layout-color);
         }
         
         .product-info {
-            padding: 1rem;
+            padding: 15px;
         }
         
-        .price-tag {
+        .product-category {
+            display: inline-block;
+            background: var(--layout-color);
+            color: var(--dark-text);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+            margin-right: 5px;
+        }
+        
+        .product-type {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+        }
+        
+        .product-price {
             color: var(--primary-color);
-            font-weight: bold;
+            font-weight: 600;
             font-size: 1.3rem;
         }
         
-        .notification-badge {
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .filter-btn, .filter-btn-type {
+            background: var(--layout-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover, .filter-btn-type:hover {
+            background: #d4ccbb;
+            transform: translateY(-2px);
+        }
+        
+        .filter-btn.active, .filter-btn-type.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(161, 188, 152, 0.4);
+        }
+        
+        /* Cart Badge */
+        .cart-badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #dc3545;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
             color: white;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.7rem;
+            width: 22px;
+            height: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
         
+        /* Notification Item */
         .notification-item {
             background: white;
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 0.8rem;
+            padding: 15px;
+            margin: 10px 15px;
+            border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--primary-color);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         
         .notification-item:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateX(5px);
         }
         
         .notification-item.unread {
-            background-color: #fff9e6;
-            border-left: 4px solid var(--primary-color);
+            background: #f8f9fa;
+            border-left-color: #e74c3c;
         }
         
+        /* Store Card */
         .store-card {
             background: white;
+            padding: 20px;
+            margin: 15px;
             border-radius: 15px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .store-distance {
             color: var(--primary-color);
-            font-weight: bold;
+            font-weight: 600;
         }
         
+        /* Cart Item */
+        .cart-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: var(--layout-color);
+        }
+        
+        /* Order Tracking */
+        .tracking-step {
+            position: relative;
+            padding-left: 40px;
+            padding-bottom: 30px;
+        }
+        
+        .tracking-step::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 30px;
+            height: calc(100% - 30px);
+            width: 2px;
+            background: var(--layout-color);
+        }
+        
+        .tracking-step:last-child::before {
+            display: none;
+        }
+        
+        .tracking-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: white;
+            border: 3px solid var(--layout-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tracking-step.completed .tracking-icon {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             background: white;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            padding: 0.5rem 0;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
             z-index: 1000;
+            padding: 10px 0;
         }
         
         .nav-item {
+            flex: 1;
             text-align: center;
-            color: #666;
+            padding: 8px;
+            color: var(--light-text);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
         
@@ -260,484 +346,1325 @@
         .nav-item i {
             font-size: 1.5rem;
             display: block;
-            margin-bottom: 0.2rem;
+            margin-bottom: 4px;
         }
         
         .nav-item span {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
         
-        .page {
-            display: none;
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
+        /* Buttons */
         .btn-primary-custom {
-            background-color: var(--primary-color);
+            background: var(--primary-color);
             border: none;
             color: white;
-            padding: 0.7rem 2rem;
-            border-radius: 25px;
-            transition: all 0.3s;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
         .btn-primary-custom:hover {
-            background-color: #8fa884;
-            transform: scale(1.05);
+            background: #8DAA82;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
-        .install-prompt {
+        /* Modal Custom */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+        }
+        
+        .modal-header {
             background: var(--primary-color);
             color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            display: none;
+            border-radius: 20px 20px 0 0;
         }
         
-        .install-prompt.show {
+        /* Form */
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(161, 188, 152, 0.25);
+        }
+        
+        /* Stars Rating */
+        .stars {
+            color: #ffd700;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading.active {
             display: block;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--light-text);
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            opacity: 0.3;
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 576px) {
+            .product-image {
+                height: 200px;
+            }
+            
+            .nav-item span {
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- App Header -->
-    <div class="app-header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <div class="logo">ILYN</div>
-                    <div class="tagline">Elegansi Muslim, Inspirasi Ilyn</div>
-                </div>
-                <div class="position-relative">
-                    <i class="bi bi-bell-fill" style="font-size: 1.5rem; cursor: pointer;" onclick="showPage('notifications')"></i>
-                    <span class="notification-badge" id="notifBadge">0</span>
-                </div>
-            </div>
-        </div>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <i class="fas fa-star floating-shape" style="top: 10%; left: 10%; font-size: 3rem;"></i>
+        <i class="fas fa-moon floating-shape" style="top: 20%; right: 15%; font-size: 2.5rem;"></i>
+        <i class="fas fa-heart floating-shape" style="bottom: 20%; left: 20%; font-size: 2rem;"></i>
+        <i class="fas fa-leaf floating-shape" style="bottom: 30%; right: 10%; font-size: 3.5rem;"></i>
+        <i class="fas fa-sparkles floating-shape" style="top: 50%; left: 5%; font-size: 2rem;"></i>
     </div>
 
-    <!-- Main Container -->
-    <div class="container pb-5 mb-5">
-        <!-- Install Prompt -->
-        <div class="install-prompt" id="installPrompt">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <i class="bi bi-download"></i> Install Ilyn untuk pengalaman lebih baik
-                </div>
-                <button class="btn btn-light btn-sm" onclick="installApp()">Install</button>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="mb-2"><i class="assets/logoilynversiandroid192x192.jpeg"></i> Ilyn</h1>
+                <p class="slogan mb-0">Elegansi Muslim, Inspirasi Ilyn</p>
             </div>
         </div>
+    </header>
 
-        <!-- Search Page -->
-        <div id="searchPage" class="page">
-            <div class="search-bar">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-search me-2"></i>
-                    <input type="text" id="searchInput" placeholder="Cari produk, kategori..." onkeyup="handleSearch()">
-                </div>
-            </div>
-            <div class="search-suggestions" id="searchSuggestions"></div>
-            <div id="searchResults"></div>
-        </div>
-
+    <!-- Main Content -->
+    <div class="main-content">
         <!-- Home Page -->
-        <div id="homePage" class="page active">
-            <div class="search-bar" onclick="showPage('search')">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-search me-2"></i>
-                    <input type="text" placeholder="Cari produk, kategori..." readonly style="pointer-events: none;">
+        <div id="home-page" class="page active">
+            <!-- Search Bar -->
+            <div class="search-container d-flex align-items-center">
+                <i class="fas fa-search me-2 text-muted"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Cari produk fashion muslim...">
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <h6 class="mb-3"><i class="fas fa-filter"></i> Filter Produk</h6>
+                
+                <!-- Gender Filter -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold"><i class="fas fa-venus-mars"></i> Gender</label>
+                    <div class="d-flex flex-wrap">
+                        <button class="filter-btn active" data-filter-category="all">Semua</button>
+                        <button class="filter-btn" data-filter-category="pria">
+                            <i class="fas fa-mars"></i> Pria
+                        </button>
+                        <button class="filter-btn" data-filter-category="wanita">
+                            <i class="fas fa-venus"></i> Wanita
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Type Filter -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold"><i class="fas fa-th-large"></i> Jenis Produk</label>
+                    <div class="d-flex flex-wrap">
+                        <button class="filter-btn-type active" data-filter-type="all">Semua</button>
+                        <button class="filter-btn-type" data-filter-type="koko">
+                            <i class="fas fa-tshirt"></i> Koko
+                        </button>
+                        <button class="filter-btn-type" data-filter-type="gamis">
+                            <i class="fas fa-user-tie"></i> Gamis
+                        </button>
+                        <button class="filter-btn-type" data-filter-type="sarung">
+                            <i class="fas fa-scroll"></i> Sarung
+                        </button>
+                        <button class="filter-btn-type" data-filter-type="hijab">
+                            <i class="fas fa-head-side-virus"></i> Hijab
+                        </button>
+                        <button class="filter-btn-type" data-filter-type="celana">
+                            <i class="fas fa-socks"></i> Celana
+                        </button>
+                        <button class="filter-btn-type" data-filter-type="peci">
+                            <i class="fas fa-hat-cowboy"></i> Peci
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <label class="form-label"><i class="fas fa-ruler"></i> Ukuran</label>
+                    <select class="form-select" id="sizeFilter">
+                        <option value="all">Semua Ukuran</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                        <option value="One Size">One Size</option>
+                    </select>
+                </div>
+                <div class="mt-3">
+                    <label class="form-label"><i class="fas fa-tags"></i> Harga</label>
+                    <select class="form-select" id="priceFilter">
+                        <option value="all">Semua Harga</option>
+                        <option value="low">< Rp 200.000</option>
+                        <option value="mid">Rp 200.000 - Rp 500.000</option>
+                        <option value="high">> Rp 500.000</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="main-content">
-                <h5 class="mb-3 fw-bold">Kategori Produk</h5>
-                <div class="row">
-                    <div class="col-6" onclick="selectCategory('pria')">
-                        <div class="category-card text-center">
-                            <div class="category-icon">👔</div>
-                            <h6 class="fw-bold">Pria</h6>
-                            <small class="text-muted">Koleksi Muslim Pria</small>
-                        </div>
-                    </div>
-                    <div class="col-6" onclick="selectCategory('wanita')">
-                        <div class="category-card text-center">
-                            <div class="category-icon">👗</div>
-                            <h6 class="fw-bold">Wanita</h6>
-                            <small class="text-muted">Koleksi Muslimah</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Filter Section -->
-                <div class="filter-section mt-4">
-                    <h6 class="fw-bold mb-3">Filter Produk</h6>
-                    
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Ukuran</label>
-                        <div>
-                            <button class="filter-btn" onclick="toggleFilter('size', 'S')">S</button>
-                            <button class="filter-btn" onclick="toggleFilter('size', 'M')">M</button>
-                            <button class="filter-btn" onclick="toggleFilter('size', 'L')">L</button>
-                            <button class="filter-btn" onclick="toggleFilter('size', 'XL')">XL</button>
-                            <button class="filter-btn" onclick="toggleFilter('size', 'XXL')">XXL</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Rentang Harga</label>
-                        <div>
-                            <button class="filter-btn" onclick="toggleFilter('price', '0-200')">< 200k</button>
-                            <button class="filter-btn" onclick="toggleFilter('price', '200-500')">200k - 500k</button>
-                            <button class="filter-btn" onclick="toggleFilter('price', '500-1000')">500k - 1jt</button>
-                            <button class="filter-btn" onclick="toggleFilter('price', '1000+')"> > 1jt</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Products -->
-                <div id="productList">
-                    <h5 class="mb-3 fw-bold">Produk Pilihan</h5>
-                    <div class="row" id="productsContainer"></div>
-                </div>
+            <!-- Products Container -->
+            <div class="container">
+                <div class="row" id="productsContainer"></div>
             </div>
         </div>
 
         <!-- Notifications Page -->
-        <div id="notificationsPage" class="page">
-            <div class="main-content">
-                <h5 class="mb-3 fw-bold">Notifikasi</h5>
-                <div id="notificationsList"></div>
+        <div id="notifications-page" class="page">
+            <div class="container py-4">
+                <h3 class="mb-4"><i class="fas fa-bell"></i> Notifikasi</h3>
+                <div id="notificationsContainer"></div>
             </div>
         </div>
 
         <!-- Stores Page -->
-        <div id="storesPage" class="page">
-            <div class="main-content">
-                <h5 class="mb-3 fw-bold">Lokasi Toko Offline</h5>
-                <div id="storesList"></div>
+        <div id="stores-page" class="page">
+            <div class="container py-4">
+                <h3 class="mb-4"><i class="fas fa-store"></i> Lokasi Toko</h3>
+                <div id="storesContainer"></div>
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cart-page" class="page">
+            <div class="container py-4">
+                <h3 class="mb-4"><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h3>
+                <div id="cartContainer"></div>
+                <div id="cartEmpty" class="empty-state" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Keranjang Anda masih kosong</p>
+                </div>
+                <div id="cartSummary" style="display: none;">
+                    <div class="bg-white p-4 rounded-4 mx-3 mb-3">
+                        <h5>Ringkasan Belanja</h5>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Total Items:</span>
+                            <strong id="totalItems">0</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Total Harga:</span>
+                            <strong class="text-success" id="totalPrice">Rp 0</strong>
+                        </div>
+                        <button class="btn btn-primary-custom w-100" onclick="showCheckoutModal()">
+                            <i class="fas fa-credit-card"></i> Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Track Order Page -->
+        <div id="track-page" class="page">
+            <div class="container py-4">
+                <h3 class="mb-4"><i class="fas fa-shipping-fast"></i> Lacak Pesanan</h3>
+                <div id="ordersContainer"></div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile-page" class="page">
+            <div class="container py-4">
+                <h3 class="mb-4"><i class="fas fa-user"></i> Profil Pengguna</h3>
+                <div class="bg-white p-4 rounded-4 mx-3">
+                    <div class="text-center mb-4">
+                        <div class="bg-primary-custom d-inline-flex align-items-center justify-content-center rounded-circle" 
+                             style="width: 100px; height: 100px; background: var(--primary-color);">
+                            <i class="fas fa-user fa-3x text-white"></i>
+                        </div>
+                    </div>
+                    <form id="profileForm">
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-user"></i> Nama Lengkap</label>
+                            <input type="text" class="form-control" id="profileName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fab fa-whatsapp"></i> Nomor WhatsApp</label>
+                            <input type="tel" class="form-control" id="profilePhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-map-marker-alt"></i> Alamat Lengkap</label>
+                            <textarea class="form-control" id="profileAddress" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="fas fa-save"></i> Simpan Profil
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <div class="container">
-            <div class="row">
-                <div class="col nav-item active" onclick="showPage('home')">
-                    <i class="bi bi-house-fill"></i>
-                    <span>Beranda</span>
+    <nav class="bottom-nav">
+        <div class="d-flex">
+            <a class="nav-item active" onclick="showPage('home')">
+                <i class="fas fa-home"></i>
+                <span>Beranda</span>
+            </a>
+            <a class="nav-item" onclick="showPage('notifications')">
+                <i class="fas fa-bell"></i>
+                <span>Notifikasi</span>
+                <span class="cart-badge" id="notifBadge" style="display: none;">0</span>
+            </a>
+            <a class="nav-item" onclick="showPage('stores')">
+                <i class="fas fa-store"></i>
+                <span>Toko</span>
+            </a>
+            <a class="nav-item" onclick="showPage('cart')">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Keranjang</span>
+                <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+            </a>
+            <a class="nav-item" onclick="showPage('track')">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Lacak</span>
+            </a>
+            <a class="nav-item" onclick="showPage('profile')">
+                <i class="fas fa-user"></i>
+                <span>Profil</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Product Detail Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Produk</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="col nav-item" onclick="showPage('search')">
-                    <i class="bi bi-search"></i>
-                    <span>Cari</span>
+                <div class="modal-body" id="productModalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-credit-card"></i> Checkout</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="col nav-item" onclick="showPage('stores')">
-                    <i class="bi bi-geo-alt-fill"></i>
-                    <span>Toko</span>
-                </div>
-                <div class="col nav-item" onclick="showPage('notifications')">
-                    <i class="bi bi-bell-fill"></i>
-                    <span>Notifikasi</span>
+                <div class="modal-body">
+                    <form id="checkoutForm">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="checkoutName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nomor WhatsApp</label>
+                            <input type="tel" class="form-control" id="checkoutPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Alamat Pengiriman</label>
+                            <textarea class="form-control" id="checkoutAddress" rows="3" required></textarea>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Total:</strong> <span id="checkoutTotal"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="fas fa-check"></i> Konfirmasi Pesanan
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    
+    <!-- Order Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-box"></i> Detail Pesanan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="orderDetailBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-star"></i> Berikan Ulasan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reviewForm">
+                        <input type="hidden" id="reviewOrderId">
+                        <div class="mb-3 text-center">
+                            <label class="form-label">Rating</label>
+                            <div class="fs-2">
+                                <i class="far fa-star star-rating" data-rating="1"></i>
+                                <i class="far fa-star star-rating" data-rating="2"></i>
+                                <i class="far fa-star star-rating" data-rating="3"></i>
+                                <i class="far fa-star star-rating" data-rating="4"></i>
+                                <i class="far fa-star star-rating" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="ratingValue" value="0">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Ulasan Anda</label>
+                            <textarea class="form-control" id="reviewText" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="fas fa-paper-plane"></i> Kirim Ulasan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // Data produk
+        // Initialize Data
         const products = [
-            {id: 1, name: 'Gamis Elegant Series', category: 'wanita', price: 350000, size: ['S', 'M', 'L', 'XL'], image: '👗'},
-            {id: 2, name: 'Kemeja Koko Premium', category: 'pria', price: 280000, size: ['M', 'L', 'XL', 'XXL'], image: 'KOKO1.jpeg'},
-            {id: 3, name: 'Hijab Pashmina Silk', category: 'wanita', price: 150000, size: ['One Size'], image: '🧕'},
-            {id: 4, name: 'Sarung Atlas Signature', category: 'pria', price: 450000, size: ['One Size'], image: '🕌'},
-            {id: 5, name: 'Dress Muslim Casual', category: 'wanita', price: 320000, size: ['S', 'M', 'L'], image: '👗'},
-            {id: 6, name: 'Jubah Saudi Premium', category: 'pria', price: 550000, size: ['L', 'XL', 'XXL'], image: '🕌'},
-            {id: 7, name: 'Tunik Modern Chic', category: 'wanita', price: 250000, size: ['M', 'L', 'XL'], image: '👚'},
-            {id: 8, name: 'Celana Sirwal Nyaman', category: 'pria', price: 180000, size: ['M', 'L', 'XL', 'XXL'], image: '👖'}
-        ];
-
-        // Data notifikasi
-        let notifications = [
-            {id: 1, title: 'Koleksi Baru!', message: 'Gamis Elegant Series sudah tersedia', read: false, link: 'home'},
-            {id: 2, title: 'Diskon 30%', message: 'Kemeja Koko Premium harga spesial hari ini', read: false, link: 'home'},
-            {id: 3, title: 'Toko Baru', message: 'Cabang baru dibuka di Jakarta Selatan', read: true, link: 'stores'}
-        ];
-
-        // Data toko
-        const stores = [
-            {id: 1, name: 'Ilyn Jakarta Pusat', address: 'Jl. Thamrin No. 10, Jakarta Pusat', phone: '021-12345678', lat: -6.1944, lng: 106.8229},
-            {id: 2, name: 'Ilyn Bandung', address: 'Jl. Asia Afrika No. 15, Bandung', phone: '022-87654321', lat: -6.9175, lng: 107.6191},
-            {id: 3, name: 'Ilyn Surabaya', address: 'Jl. Tunjungan No. 20, Surabaya', phone: '031-98765432', lat: -7.2575, lng: 112.7521}
-        ];
-
-        // State management
-        let currentPage = 'home';
-        let filters = {
-            category: null,
-            size: null,
-            price: null
-        };
-        let userLocation = null;
-
-        // Initialize app
-        function init() {
-            loadPreferences();
-            renderProducts();
-            renderNotifications();
-            renderStores();
-            updateNotificationBadge();
-            requestLocation();
+            // Produk Pria - Koko
+            {
+                id: 1,
+                name: 'Koko Premium Bordir',
+                category: 'pria',
+                type: 'koko',
+                price: 350000,
+                image: "assets/img/koko/KOKO1.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko dengan bordir eksklusif, bahan katun premium'
+            },
+            {
+                id: 2,
+                name: 'Koko Lengan Pendek Modern',
+                category: 'pria',
+                type: 'koko',
+                price: 280000,
+                image: "assets/img/koko/KOKO2.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko lengan pendek dengan desain modern dan nyaman'
+            },
+            {
+                id: 3,
+                name: 'Koko Putih Polos Elegant',
+                category: 'pria',
+                type: 'koko',
+                price: 320000,
+                image: "assets/img/koko/KOKO4.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko putih polos dengan kerah shanghai'
+            },
+            {
+                id: 4,
+                name: 'Koko Hitam Premium',
+                category: 'pria',
+                type: 'koko',
+                price: 380000,
+                image: "assets/img/koko/KOKO3.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko hitam dengan bahan premium dan detail mewah'
+            },
             
-            // Animate on load
-            anime({
-                targets: '.category-card',
-                translateY: [50, 0],
-                opacity: [0, 1],
-                delay: anime.stagger(100),
-                duration: 800,
-                easing: 'easeOutExpo'
-            });
+            // Produk Pria - Sarung
+            {
+                id: 5,
+                name: 'Sarung Atlas Premium',
+                category: 'pria',
+                type: 'sarung',
+                price: 250000,
+                image: "assets/img/sarung/SARUNG1.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung atlas dengan motif tradisional modern'
+            },
+            {
+                id: 6,
+                name: 'Sarung Wadimor Jacquard',
+                category: 'pria',
+                type: 'sarung',
+                price: 220000,
+                image: "assets/img/sarung/SARUNG2.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung jacquard halus dengan motif eksklusif'
+            },
+            {
+                id: 7,
+                name: 'Sarung Sutra Premium',
+                category: 'pria',
+                type: 'sarung',
+                price: 450000,
+                image: "assets/img/sarung/SARUNG4.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung sutra mewah dengan kilau sempurna'
+            },
+            
+            // Produk Pria - Celana
+            {
+                id: 8,
+                name: 'Celana Sirwal Panjang',
+                category: 'pria',
+                type: 'celana',
+                price: 180000,
+                image: "assets/img/celana/CELANA3.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana sirwal nyaman untuk sholat dan aktivitas'
+            },
+            {
+                id: 9,
+                name: 'Celana Kargo Muslim',
+                category: 'pria',
+                type: 'celana',
+                price: 220000,
+                image: "assets/img/celana/CELANA1.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana kargo dengan kantong praktis'
+            },
+            {
+                id: 10,
+                name: 'Celana Panjang Formal',
+                category: 'pria',
+                type: 'celana',
+                price: 250000,
+                image: "assets/img/celana/CELANA2.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana formal untuk acara resmi'
+            },
+            
+            // Produk Pria - Celana
+            {
+                id: 11,
+                name: 'Celana Kulot Panjang',
+                category: 'pria',
+                type: 'celana',
+                price: 85000,
+                image: "assets/img/celana/CELANA4.jpeg",
+                sizes: ['One Size'],
+                description: 'Celana kulot hitam dengan bahan berkualitas'
+            },
+            {
+                id: 12,
+                name: 'Peci Bordir Premium',
+                category: 'pria',
+                type: 'peci',
+                price: 120000,
+                image: "assets/img/peci/Peci09.jpg",
+                sizes: ['One Size'],
+                description: 'Peci dengan bordir eksklusif dan mewah'
+            },
+            {
+                id: 13,
+                name: 'Peci Rajut Modern',
+                category: 'pria',
+                type: 'peci',
+                price: 95000,
+                image: "assets/img/peci/Peci10.jpg",
+                sizes: ['One Size'],
+                description: 'Peci rajut dengan desain modern'
+            },
+            
+            // Produk Wanita - Gamis
+            {
+                id: 14,
+                name: 'Gamis Syari Elegant',
+                category: 'wanita',
+                type: 'gamis',
+                price: 450000,
+                image: "assets/img/gamis/GAMIS 1.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Gamis syari dengan bordir cantik dan bahan premium'
+            },
+            {
+                id: 15,
+                name: 'Gamis Polos Premium',
+                category: 'wanita',
+                type: 'gamis',
+                price: 380000,
+                image: "assets/img/gamis/GAMIS 2.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Gamis polos elegan dengan busui friendly'
+            },
+            {
+                id: 16,
+                name: 'Gamis Motif Floral',
+                category: 'wanita',
+                type: 'gamis',
+                price: 420000,
+                image: "assets/img/gamis/GAMIS 5.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Gamis dengan motif floral modern dan trendy'
+            },
+            {
+                id: 17,
+                name: 'Gamis Set Khimar',
+                category: 'wanita',
+                type: 'gamis',
+                price: 520000,
+                image: "assets/img/gamis/GAMIS 8.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Gamis lengkap dengan khimar matching'
+            },
+            {
+                id: 18,
+                name: 'Hijab Pashmina Shimmer',
+                category: 'wanita',
+                type: 'hijab',
+                price: 680000,
+                image: "assets/img/hijab/HIJAB1.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Hijab dengan detail kaos untuk acara spesial'
+            },
+            
+            // Produk Wanita - Hijab
+            {
+                id: 19,
+                name: 'Hijab Pashmina Silk',
+                category: 'wanita',
+                type: 'hijab',
+                price: 150000,
+                image: "assets/img/hijab/HIJAB6.JPG",
+                sizes: ['One Size'],
+                description: 'Pashmina silk premium dengan berbagai pilihan warna'
+            },
+            {
+                id: 20,
+                name: 'Hijab Segi Empat Voal',
+                category: 'wanita',
+                type: 'hijab',
+                price: 85000,
+                image: "assets/img/hijab/HIJAB7.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab segi empat voal dengan bahan adem'
+            },
+            {
+                id: 21,
+                name: 'Hijab Instant Bergo',
+                category: 'wanita',
+                type: 'hijab',
+                price: 95000,
+                image: "assets/img/hijab/HIJAB8.JPG",
+                sizes: ['S', 'M', 'L'],
+                description: 'Hijab instant praktis untuk aktivitas sehari-hari'
+            },
+            {
+                id: 22,
+                name: 'Hijab Khimar Syari',
+                category: 'wanita',
+                type: 'hijab',
+                price: 180000,
+                image: "assets/img/hijab/HIJAB9.JPG",
+                sizes: ['S', 'M', 'L'],
+                description: 'Khimar syari untuk tampilan lebih menutup'
+            },
+            {
+                id: 23,
+                name: 'Hijab Paris Premium',
+                category: 'wanita',
+                type: 'hijab',
+                price: 120000,
+                image: "assets/img/hijab/HIJAB10.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab paris dengan bahan premium dan tidak mudah kusut'
+            },
+            
+            // Produk Wanita - Hijab
+            {
+                id: 24,
+                name: 'Hijab Pashmina Kaos',
+                category: 'wanita',
+                type: 'hijab',
+                price: 180000,
+                image: "assets/img/hijab/HIJAB3.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Celana kulot longgar dan nyaman untuk muslimah'
+            },
+            {
+                id: 25,
+                name: 'Hijab Bella Square',
+                category: 'wanita',
+                type: 'hijab',
+                price: 220000,
+                image: "assets/img/hijab/HIJAB5.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Celana plisket dengan model elegan dan modern'
+            },
+            {
+                id: 26,
+                name: 'Hijab Pashmina Plisket',
+                category: 'wanita',
+                type: 'hijab',
+                price: 195000,
+                image: "assets/img/hijab/HIJAB2.JPG",
+                sizes: ['S', 'M', 'L', 'XL'],
+                description: 'Celana dengan model rok untuk tampilan feminin'
+            }
+        ];
 
-            // Check if app can be installed
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                window.deferredPrompt = e;
-                document.getElementById('installPrompt').classList.add('show');
+        const stores = [
+            {
+                id: 1,
+                name: 'Ilyn Store Pemalang Kota',
+                address: 'Jl. Ahmad Yani No. 123, Pemalang',
+                phone: '0284-123456',
+                distance: '2.5',
+                lat: -6.8931,
+                lng: 109.3778
+            },
+            {
+                id: 2,
+                name: 'Ilyn Store Mall Pemalang',
+                address: 'Mall Pemalang Lt. 2, Pemalang',
+                phone: '0284-654321',
+                distance: '3.8',
+                lat: -6.8950,
+                lng: 109.3800
+            },
+            {
+                id: 3,
+                name: 'Ilyn Store Comal',
+                address: 'Jl. Raya Comal No. 45, Pemalang',
+                phone: '0284-789012',
+                distance: '8.2',
+                lat: -6.9050,
+                lng: 109.4000
+            }
+        ];
+
+        const notifications = [
+            {
+                id: 1,
+                title: 'Promo Spesial Ramadan!',
+                message: 'Diskon hingga 50% untuk koleksi gamis dan koko. Buruan belanja!',
+                type: 'promo',
+                read: false,
+                date: '2 jam yang lalu'
+            },
+            {
+                id: 2,
+                title: 'Toko Baru Dibuka',
+                message: 'Ilyn Store sekarang hadir di Mall Pemalang. Kunjungi kami!',
+                type: 'store',
+                read: false,
+                date: '1 hari yang lalu'
+            },
+            {
+                id: 3,
+                title: 'Koleksi Terbaru',
+                message: 'Lihat koleksi hijab pashmina silk kami yang baru tiba.',
+                type: 'product',
+                read: true,
+                date: '3 hari yang lalu'
+            }
+        ];
+
+        // LocalStorage Manager
+        const Storage = {
+            get: (key) => JSON.parse(localStorage.getItem(key) || '[]'),
+            set: (key, value) => localStorage.setItem(key, JSON.stringify(value)),
+            getProfile: () => JSON.parse(localStorage.getItem('profile') || '{}'),
+            setProfile: (profile) => localStorage.setItem('profile', JSON.stringify(profile))
+        };
+
+        // Initialize
+        let cart = Storage.get('cart');
+        let orders = Storage.get('orders');
+        let profile = Storage.getProfile();
+        let currentFilter = 'all';
+        let currentType = 'all';
+        let currentSize = 'all';
+        let currentPrice = 'all';
+
+        // Animations
+        function initAnimations() {
+            // Floating shapes animation
+            anime({
+                targets: '.floating-shape',
+                translateY: [
+                    { value: -20, duration: 2000 },
+                    { value: 20, duration: 2000 }
+                ],
+                translateX: [
+                    { value: 10, duration: 2500 },
+                    { value: -10, duration: 2500 }
+                ],
+                rotate: [
+                    { value: 15, duration: 3000 },
+                    { value: -15, duration: 3000 }
+                ],
+                loop: true,
+                easing: 'easeInOutSine',
+                delay: anime.stagger(200)
             });
         }
 
-        // Page navigation
+        // Navigation
         function showPage(page) {
-            currentPage = page;
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             
-            document.getElementById(page + 'Page').classList.add('active');
-            document.querySelectorAll('.nav-item')[
-                ['home', 'search', 'stores', 'notifications'].indexOf(page)
-            ].classList.add('active');
+            document.getElementById(`${page}-page`).classList.add('active');
+            event.currentTarget.classList.add('active');
 
-            // Animate page transition
+            // Animate page entrance
             anime({
-                targets: `#${page}Page`,
+                targets: `#${page}-page`,
                 opacity: [0, 1],
                 translateY: [20, 0],
                 duration: 500,
                 easing: 'easeOutQuad'
             });
 
-            if (page === 'search') {
-                setTimeout(() => document.getElementById('searchInput').focus(), 300);
-            }
+            // Load specific page data
+            if (page === 'cart') loadCart();
+            if (page === 'track') loadOrders();
+            if (page === 'profile') loadProfile();
+            if (page === 'stores') loadStores();
+            if (page === 'notifications') loadNotifications();
         }
 
-        // Filter functions
-        function selectCategory(category) {
-            filters.category = category;
-            savePreferences();
-            renderProducts();
-            
-            anime({
-                targets: '.product-card',
-                scale: [0.8, 1],
-                opacity: [0, 1],
-                delay: anime.stagger(50),
-                duration: 500,
-                easing: 'easeOutExpo'
-            });
-        }
-
-        function toggleFilter(type, value) {
-            if (filters[type] === value) {
-                filters[type] = null;
-            } else {
-                filters[type] = value;
-            }
-            
-            // Update button states
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if (btn.textContent.trim() === value) {
-                    btn.classList.toggle('active');
-                }
-            });
-            
-            savePreferences();
-            renderProducts();
-        }
-
-        // Render products
+        // Products
         function renderProducts() {
+            const container = document.getElementById('productsContainer');
             let filtered = products.filter(p => {
-                if (filters.category && p.category !== filters.category) return false;
-                if (filters.size && !p.size.includes(filters.size)) return false;
-                if (filters.price) {
-                    const [min, max] = filters.price.split('-').map(v => parseInt(v) * 1000 || Infinity);
-                    if (p.price < min || p.price > max) return false;
+                let match = true;
+                // Filter by gender/category
+                if (currentFilter !== 'all') match = match && p.category === currentFilter;
+                // Filter by product type
+                if (currentType !== 'all') match = match && p.type === currentType;
+                // Filter by size
+                if (currentSize !== 'all') match = match && p.sizes.includes(currentSize);
+                // Filter by price
+                if (currentPrice !== 'all') {
+                    if (currentPrice === 'low') match = match && p.price < 200000;
+                    if (currentPrice === 'mid') match = match && p.price >= 200000 && p.price <= 500000;
+                    if (currentPrice === 'high') match = match && p.price > 500000;
                 }
-                return true;
+                return match;
             });
 
-            const container = document.getElementById('productsContainer');
-            container.innerHTML = filtered.map(p => `
-                <div class="col-md-6 product-card-wrapper">
-                    <div class="product-card">
-                        <div class="product-image">${p.image}</div>
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <p>Tidak ada produk yang sesuai dengan filter</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(product => {
+                const genderIcon = product.category === 'pria' ? 'mars' : 'venus';
+                const genderText = product.category === 'pria' ? 'PRIA' : 'WANITA';
+                const typeText = product.type.toUpperCase();
+                
+                return `
+                <div class="col-md-6 col-lg-4 product-item">
+                    <div class="product-card" onclick="showProductDetail(${product.id})">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
                         <div class="product-info">
-                            <h6 class="fw-bold mb-2">${p.name}</h6>
-                            <p class="text-muted small mb-2">Ukuran: ${p.size.join(', ')}</p>
-                            <div class="price-tag">Rp ${p.price.toLocaleString('id-ID')}</div>
-                            <button class="btn btn-primary-custom w-100 mt-2">
-                                <i class="bi bi-cart-plus"></i> Tambah
+                            <span class="product-category">
+                                <i class="fas fa-${genderIcon}"></i> ${genderText}
+                            </span>
+                            <span class="product-type">${typeText}</span>
+                            <h5 class="mt-2">${product.name}</h5>
+                            <p class="text-muted small mb-2">${product.description}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price">Rp ${product.price.toLocaleString('id-ID')}</span>
+                                <button class="btn btn-sm btn-primary-custom" onclick="event.stopPropagation(); addToCart(${product.id})">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+
+            // Animate products
+            anime({
+                targets: '.product-item',
+                opacity: [0, 1],
+                translateY: [30, 0],
+                delay: anime.stagger(100),
+                duration: 600,
+                easing: 'easeOutQuad'
+            });
+        }
+
+        function showProductDetail(id) {
+            const product = products.find(p => p.id === id);
+            const modal = new bootstrap.Modal(document.getElementById('productModal'));
+            
+            const genderIcon = product.category === 'pria' ? 'mars' : 'venus';
+            const genderText = product.category === 'pria' ? 'PRIA' : 'WANITA';
+            const typeIcon = {
+                'koko': 'tshirt',
+                'gamis': 'user-tie',
+                'sarung': 'scroll',
+                'hijab': 'head-side-virus',
+                'celana': 'socks',
+                'peci': 'hat-cowboy'
+            };
+            
+            document.getElementById('productModalBody').innerHTML = `
+                <img src="${product.image}" class="w-100 rounded mb-3" alt="${product.name}">
+                <h4>${product.name}</h4>
+                <p class="text-muted">${product.description}</p>
+                <div class="mb-3">
+                    <strong>Kategori:</strong> 
+                    <span class="badge" style="background: var(--layout-color); color: var(--dark-text);">
+                        <i class="fas fa-${genderIcon}"></i> ${genderText}
+                    </span>
+                    <span class="badge" style="background: var(--primary-color); color: white;">
+                        <i class="fas fa-${typeIcon[product.type]}"></i> ${product.type.toUpperCase()}
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <strong>Ukuran Tersedia:</strong><br>
+                    ${product.sizes.map(size => `<span class="badge bg-light text-dark me-1">${size}</span>`).join('')}
+                </div>
+                <h3 class="text-success mb-3">Rp ${product.price.toLocaleString('id-ID')}</h3>
+                <button class="btn btn-primary-custom w-100" onclick="addToCart(${product.id}); bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();">
+                    <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
+                </button>
+            `;
+            
+            modal.show();
+        }
+
+        // Cart Functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.productId === productId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    productId: productId,
+                    quantity: 1,
+                    size: product.sizes[0]
+                });
+            }
+            
+            Storage.set('cart', cart);
+            updateCartBadge();
+            
+            // Show success animation
+            anime({
+                targets: '#cartBadge',
+                scale: [1, 1.5, 1],
+                duration: 500,
+                easing: 'easeInOutQuad'
+            });
+
+            // Show toast notification
+            showToast('Produk ditambahkan ke keranjang!');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.productId !== productId);
+            Storage.set('cart', cart);
+            loadCart();
+            updateCartBadge();
+        }
+
+        function updateCartItemQuantity(productId, change) {
+            const item = cart.find(item => item.productId === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    Storage.set('cart', cart);
+                    loadCart();
+                }
+            }
+        }
+
+        function loadCart() {
+            const container = document.getElementById('cartContainer');
+            const empty = document.getElementById('cartEmpty');
+            const summary = document.getElementById('cartSummary');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                empty.style.display = 'block';
+                summary.style.display = 'none';
+                return;
+            }
+            
+            empty.style.display = 'none';
+            summary.style.display = 'block';
+            
+            let total = 0;
+            let totalItems = 0;
+            
+            container.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                const subtotal = product.price * item.quantity;
+                total += subtotal;
+                totalItems += item.quantity;
+                
+                return `
+                    <div class="cart-item">
+                        <img src="${product.image}" alt="${product.name}" class="cart-item-image">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">${product.name}</h6>
+                            <p class="text-muted small mb-2">Ukuran: ${item.size}</p>
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-sm btn-outline-secondary" onclick="updateCartItemQuantity(${product.id}, -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="fw-bold">${item.quantity}</span>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="updateCartItemQuantity(${product.id}, 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <p class="fw-bold mb-2">Rp ${subtotal.toLocaleString('id-ID')}</p>
+                            <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${product.id})">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
-                </div>
-            `).join('');
-        }
-
-        // Search functionality
-        const searchData = [
-            'Gamis', 'Kemeja Koko', 'Hijab', 'Sarung', 'Dress Muslim', 
-            'Jubah', 'Tunik', 'Celana Sirwal', 'Pria', 'Wanita'
-        ];
-
-        function handleSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const suggestions = document.getElementById('searchSuggestions');
+                `;
+            }).join('');
             
-            if (query.length > 0) {
-                const matches = searchData.filter(item => 
-                    item.toLowerCase().includes(query)
-                );
-                
-                suggestions.innerHTML = matches.map(item => `
-                    <div class="suggestion-item" onclick="selectSuggestion('${item}')">
-                        <i class="bi bi-search me-2"></i> ${item}
-                    </div>
-                `).join('');
-                suggestions.classList.add('active');
-                
-                // Show search results
-                const results = products.filter(p => 
-                    p.name.toLowerCase().includes(query)
-                );
-                
-                document.getElementById('searchResults').innerHTML = results.length > 0 ? `
-                    <div class="main-content mt-3">
-                        <h6 class="fw-bold mb-3">Hasil Pencarian (${results.length})</h6>
-                        <div class="row">
-                            ${results.map(p => `
-                                <div class="col-12 col-md-6 mb-3">
-                                    <div class="product-card">
-                                        <div class="product-image">${p.image}</div>
-                                        <div class="product-info">
-                                            <h6 class="fw-bold">${p.name}</h6>
-                                            <div class="price-tag">Rp ${p.price.toLocaleString('id-ID')}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                ` : '<div class="main-content mt-3"><p class="text-muted">Tidak ada hasil</p></div>';
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalPrice').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (total > 0) {
+                badge.textContent = total;
+                badge.style.display = 'flex';
             } else {
-                suggestions.classList.remove('active');
-                document.getElementById('searchResults').innerHTML = '';
+                badge.style.display = 'none';
             }
         }
 
-        function selectSuggestion(item) {
-            document.getElementById('searchInput').value = item;
-            handleSearch();
+        // Checkout
+        function showCheckoutModal() {
+            if (!profile.name) {
+                alert('Silakan lengkapi profil Anda terlebih dahulu');
+                showPage('profile');
+                return;
+            }
+            
+            const modal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+            document.getElementById('checkoutName').value = profile.name || '';
+            document.getElementById('checkoutPhone').value = profile.phone || '';
+            document.getElementById('checkoutAddress').value = profile.address || '';
+            
+            const total = cart.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.productId);
+                return sum + (product.price * item.quantity);
+            }, 0);
+            
+            document.getElementById('checkoutTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            modal.show();
         }
 
-        // Notifications
-        function renderNotifications() {
-            const container = document.getElementById('notificationsList');
-            container.innerHTML = notifications.map(n => `
-                <div class="notification-item ${n.read ? '' : 'unread'}" onclick="openNotification(${n.id})">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <h6 class="fw-bold mb-1">${n.title}</h6>
-                            <p class="text-muted small mb-0">${n.message}</p>
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const order = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                items: [...cart],
+                customer: {
+                    name: document.getElementById('checkoutName').value,
+                    phone: document.getElementById('checkoutPhone').value,
+                    address: document.getElementById('checkoutAddress').value
+                },
+                status: 'dikemas',
+                tracking: [
+                    { status: 'dikemas', date: new Date().toISOString(), completed: true }
+                ]
+            };
+            
+            orders.push(order);
+            Storage.set('orders', orders);
+            
+            cart = [];
+            Storage.set('cart', cart);
+            
+            bootstrap.Modal.getInstance(document.getElementById('checkoutModal')).hide();
+            updateCartBadge();
+            
+            showToast('Pesanan berhasil dibuat!');
+            showPage('track');
+        });
+
+        // Orders
+        function loadOrders() {
+            const container = document.getElementById('ordersContainer');
+            
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>Belum ada pesanan</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => {
+                const total = order.items.reduce((sum, item) => {
+                    const product = products.find(p => p.id === item.productId);
+                    return sum + (product.price * item.quantity);
+                }, 0);
+                
+                const statusInfo = {
+                    'dikemas': { icon: 'box', color: 'primary', text: 'Sedang Dikemas' },
+                    'dikirim': { icon: 'shipping-fast', color: 'info', text: 'Dalam Pengiriman' },
+                    'sampai': { icon: 'check-circle', color: 'success', text: 'Telah Sampai' }
+                };
+                
+                const status = statusInfo[order.status];
+                
+                return `
+                    <div class="bg-white p-4 rounded-4 mx-3 mb-3 shadow-sm" onclick="showOrderDetail(${order.id})">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h6 class="mb-1">Order #${order.id}</h6>
+                                <small class="text-muted">${new Date(order.date).toLocaleDateString('id-ID')}</small>
+                            </div>
+                            <span class="badge bg-${status.color}">
+                                <i class="fas fa-${status.icon}"></i> ${status.text}
+                            </span>
                         </div>
-                        ${!n.read ? '<i class="bi bi-circle-fill text-primary" style="font-size: 0.5rem;"></i>' : ''}
+                        <div class="border-top pt-3">
+                            <p class="mb-2"><strong>${order.items.length}</strong> produk</p>
+                            <p class="mb-0 fw-bold text-success">Total: Rp ${total.toLocaleString('id-ID')}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showOrderDetail(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            const modal = new bootstrap.Modal(document.getElementById('orderDetailModal'));
+            
+            const total = order.items.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.productId);
+                return sum + (product.price * item.quantity);
+            }, 0);
+            
+            const trackingSteps = {
+                'dikemas': ['dikemas'],
+                'dikirim': ['dikemas', 'dikirim'],
+                'sampai': ['dikemas', 'dikirim', 'sampai']
+            };
+            
+            const currentSteps = trackingSteps[order.status];
+            
+            document.getElementById('orderDetailBody').innerHTML = `
+                <h6 class="mb-3">Informasi Pelanggan</h6>
+                <p class="mb-1"><i class="fas fa-user"></i> ${order.customer.name}</p>
+                <p class="mb-1"><i class="fab fa-whatsapp"></i> ${order.customer.phone}</p>
+                <p class="mb-3"><i class="fas fa-map-marker-alt"></i> ${order.customer.address}</p>
+                
+                <h6 class="mb-3">Produk yang Dipesan</h6>
+                ${order.items.map(item => {
+                    const product = products.find(p => p.id === item.productId);
+                    return `
+                        <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                            <img src="${product.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                            <div class="flex-grow-1">
+                                <p class="mb-1 fw-bold">${product.name}</p>
+                                <small class="text-muted">Ukuran: ${item.size} | Qty: ${item.quantity}</small>
+                                <p class="mb-0 fw-bold">Rp ${(product.price * item.quantity).toLocaleString('id-ID')}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+                
+                <div class="border-top pt-3 mb-4">
+                    <h5 class="text-end">Total: Rp ${total.toLocaleString('id-ID')}</h5>
+                </div>
+                
+                <h6 class="mb-3">Status Pengiriman</h6>
+                <div class="tracking-steps mb-4">
+                    <div class="tracking-step ${currentSteps.includes('dikemas') ? 'completed' : ''}">
+                        <div class="tracking-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div>
+                            <strong>Pesanan Dikemas</strong>
+                            <p class="text-muted small mb-0">Pesanan sedang diproses</p>
+                        </div>
+                    </div>
+                    <div class="tracking-step ${currentSteps.includes('dikirim') ? 'completed' : ''}">
+                        <div class="tracking-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div>
+                            <strong>Dalam Pengiriman</strong>
+                            <p class="text-muted small mb-0">Pesanan sedang dikirim</p>
+                        </div>
+                    </div>
+                    <div class="tracking-step ${currentSteps.includes('sampai') ? 'completed' : ''}">
+                        <div class="tracking-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <strong>Pesanan Sampai</strong>
+                            <p class="text-muted small mb-0">Pesanan telah diterima</p>
+                        </div>
                     </div>
                 </div>
-            `).join('');
-        }
-
-        function openNotification(id) {
-            const notif = notifications.find(n => n.id === id);
-            if (notif) {
-                notif.read = true;
-                updateNotificationBadge();
-                renderNotifications();
-                showPage(notif.link);
-            }
-        }
-
-        function updateNotificationBadge() {
-            const unread = notifications.filter(n => !n.read).length;
-            const badge = document.getElementById('notifBadge');
-            badge.textContent = unread;
-            badge.style.display = unread > 0 ? 'flex' : 'none';
-        }
-
-        // Stores with location
-        function requestLocation() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        userLocation = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-                        renderStores();
-                    },
-                    () => {
-                        console.log('Location access denied');
-                    }
-                );
-            }
-        }
-
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Radius bumi dalam km
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                     Math.sin(dLon/2) * Math.sin(dLon/2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            return R * c;
-        }
-
-        function renderStores() {
-            const container = document.getElementById('storesList');
-            const storesWithDistance = stores.map(s => {
-                const distance = userLocation ? 
-                    calculateDistance(userLocation.lat, userLocation.lng, s.lat, s.lng) : null;
-                return {...s, distance};
-            }).sort((a, b) => (a.distance || 999) - (b.distance || 999));
-
-            container.innerHTML = storesWithDistance.map(s => `
-                <div class="store-card">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h6 class="fw-bold mb-0">${s.name}</h6>
-                        ${s.distance ? `<span class="store-distance">${s.distance.toFixed(1)} km</span>` : ''}
-                    </div>
-                    <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> ${s.address}</p>
-                    <p class="text-muted small mb-3"><i class="bi bi-telephone"></i> ${s.phone}</p>
-                    <button class="btn btn-primary-custom btn-sm" onclick="openMaps(${s.lat}, ${s.lng})">
-                        <i class="bi bi-map"></i> Buka di Maps
+                
+                ${order.status === 'sampai' && !order.reviewed ? `
+                    <button class="btn btn-primary-custom w-100" onclick="showReviewModal(${order.id})">
+                        <i class="fas fa-star"></i> Berikan Ulasan
                     </button>
+                ` : ''}
+                
+                ${order.reviewed ? `
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> Ulasan telah diberikan
+                    </div>
+                ` : ''}
+            `;
+            
+            modal.show();
+        }
+
+        function showReviewModal(orderId) {
+            bootstrap.Modal.getInstance(document.getElementById('orderDetailModal')).hide();
+            const modal = new bootstrap.Modal(document.getElementById('reviewModal'));
+            document.getElementById('reviewOrderId').value = orderId;
+            document.getElementById('ratingValue').value = 0;
+            document.getElementById('reviewText').value = '';
+            
+            // Reset stars
+            document.querySelectorAll('.star-rating').forEach(star => {
+                star.classList.remove('fas');
+                star.classList.add('far');
+            });
+            
+            modal.show();
+        }
+
+        // Star Rating
+        document.querySelectorAll('.star-rating').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                document.getElementById('ratingValue').value = rating;
+                
+                document.querySelectorAll('.star-rating').forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    }
+                });
+            });
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const orderId = parseInt(document.getElementById('reviewOrderId').value);
+            const rating = parseInt(document.getElementById('ratingValue').value);
+            const review = document.getElementById('reviewText').value;
+            
+            if (rating === 0) {
+                alert('Silakan pilih rating');
+                return;
+            }
+            
+            const order = orders.find(o => o.id === orderId);
+            order.reviewed = true;
+            order.review = { rating, text: review, date: new Date().toISOString() };
+            
+            Storage.set('orders', orders);
+            
+            bootstrap.Modal.getInstance(document.getElementById('reviewModal')).hide();
+            showToast('Terima kasih atas ulasan Anda!');
+            loadOrders();
+        });
+
+        // Profile
+        function loadProfile() {
+            document.getElementById('profileName').value = profile.name || '';
+            document.getElementById('profilePhone').value = profile.phone || '';
+            document.getElementById('profileAddress').value = profile.address || '';
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            profile = {
+                name: document.getElementById('profileName').value,
+                phone: document.getElementById('profilePhone').value,
+                address: document.getElementById('profileAddress').value
+            };
+            
+            Storage.setProfile(profile);
+            showToast('Profil berhasil disimpan!');
+        });
+
+        // Stores
+        function loadStores() {
+            const container = document.getElementById('storesContainer');
+            
+            container.innerHTML = stores.map(store => `
+                <div class="store-card">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="mb-1"><i class="fas fa-store"></i> ${store.name}</h5>
+                            <p class="text-muted mb-1"><i class="fas fa-map-marker-alt"></i> ${store.address}</p>
+                            <p class="mb-0"><i class="fas fa-phone"></i> ${store.phone}</p>
+                        </div>
+                        <span class="store-distance">
+                            <i class="fas fa-location-arrow"></i> ${store.distance} km
+                        </span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary btn-sm flex-grow-1" onclick="openMaps(${store.lat}, ${store.lng})">
+                            <i class="fas fa-directions"></i> Petunjuk Arah
+                        </button>
+                        <button class="btn btn-outline-success btn-sm flex-grow-1" onclick="callStore('${store.phone}')">
+                            <i class="fas fa-phone"></i> Hubungi
+                        </button>
+                    </div>
                 </div>
             `).join('');
         }
@@ -746,273 +1673,211 @@
             window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
         }
 
-        // Storage functions - using object storage instead of localStorage
-        let preferencesData = null;
-
-        function savePreferences() {
-            preferencesData = {...filters};
+        function callStore(phone) {
+            window.location.href = `tel:${phone}`;
         }
 
-        function loadPreferences() {
-            if (preferencesData) {
-                filters = {...preferencesData};
-                // Update UI berdasarkan preferensi tersimpan
-                Object.keys(filters).forEach(key => {
-                    if (filters[key]) {
-                        const btn = Array.from(document.querySelectorAll('.filter-btn'))
-                            .find(b => b.textContent.trim() === filters[key]);
-                        if (btn) btn.classList.add('active');
-                    }
-                });
+        // Notifications
+        function loadNotifications() {
+            const container = document.getElementById('notificationsContainer');
+            
+            if (notifications.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-bell"></i>
+                        <p>Tidak ada notifikasi</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = notifications.map(notif => `
+                <div class="notification-item ${notif.read ? '' : 'unread'}" onclick="markAsRead(${notif.id})">
+                    <div class="d-flex justify-content-between mb-2">
+                        <h6 class="mb-0">${notif.title}</h6>
+                        ${!notif.read ? '<span class="badge bg-danger">Baru</span>' : ''}
+                    </div>
+                    <p class="mb-2">${notif.message}</p>
+                    <small class="text-muted"><i class="far fa-clock"></i> ${notif.date}</small>
+                </div>
+            `).join('');
+            
+            updateNotificationBadge();
+        }
+
+        function markAsRead(id) {
+            const notif = notifications.find(n => n.id === id);
+            if (notif) {
+                notif.read = true;
+                loadNotifications();
             }
         }
 
-        // PWA Install
-        function installApp() {
-            const promptEvent = window.deferredPrompt;
-            if (!promptEvent) return;
+        function updateNotificationBadge() {
+            const badge = document.getElementById('notifBadge');
+            const unread = notifications.filter(n => !n.read).length;
             
-            promptEvent.prompt();
-            promptEvent.userChoice.then((result) => {
-                if (result.outcome === 'accepted') {
-                    document.getElementById('installPrompt').classList.remove('show');
-                }
-                window.deferredPrompt = null;
+            if (unread > 0) {
+                badge.textContent = unread;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Search
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const filteredProducts = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query) ||
+                p.type.toLowerCase().includes(query)
+            );
+            
+            const container = document.getElementById('productsContainer');
+            
+            if (filteredProducts.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>Tidak ditemukan produk "${query}"</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredProducts.map(product => {
+                const genderIcon = product.category === 'pria' ? 'mars' : 'venus';
+                const genderText = product.category === 'pria' ? 'PRIA' : 'WANITA';
+                const typeText = product.type.toUpperCase();
+                
+                return `
+                <div class="col-md-6 col-lg-4 product-item">
+                    <div class="product-card" onclick="showProductDetail(${product.id})">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <span class="product-category">
+                                <i class="fas fa-${genderIcon}"></i> ${genderText}
+                            </span>
+                            <span class="product-type">${typeText}</span>
+                            <h5 class="mt-2">${product.name}</h5>
+                            <p class="text-muted small mb-2">${product.description}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price">Rp ${product.price.toLocaleString('id-ID')}</span>
+                                <button class="btn btn-sm btn-primary-custom" onclick="event.stopPropagation(); addToCart(${product.id})">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+        });
+
+        // Filters - Gender/Category
+        document.querySelectorAll('[data-filter-category]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-filter-category]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filterCategory;
+                renderProducts();
             });
+        });
+        
+        // Filters - Product Type
+        document.querySelectorAll('[data-filter-type]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-filter-type]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentType = this.dataset.filterType;
+                renderProducts();
+            });
+        });
+
+        document.getElementById('sizeFilter').addEventListener('change', function() {
+            currentSize = this.value;
+            renderProducts();
+        });
+
+        document.getElementById('priceFilter').addEventListener('change', function() {
+            currentPrice = this.value;
+            renderProducts();
+        });
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed bottom-0 end-0 p-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <div class="toast show" role="alert">
+                    <div class="toast-body bg-success text-white rounded">
+                        <i class="fas fa-check-circle me-2"></i>${message}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
         }
 
         // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                const swCode = `
-                    const CACHE_NAME = 'ilyn-v1';
-                    const urlsToCache = [
-                        '/',
-                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css',
-                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css',
-                        'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js',
-                        'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js'
-                    ];
-
-                    self.addEventListener('install', (event) => {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME)
-                                .then((cache) => cache.addAll(urlsToCache))
-                        );
-                    });
-
-                    self.addEventListener('fetch', (event) => {
-                        event.respondWith(
-                            caches.match(event.request)
-                                .then((response) => response || fetch(event.request))
-                        );
-                    });
-
-                    self.addEventListener('activate', (event) => {
-                        event.waitUntil(
-                            caches.keys().then((cacheNames) => {
-                                return Promise.all(
-                                    cacheNames.map((cacheName) => {
-                                        if (cacheName !== CACHE_NAME) {
-                                            return caches.delete(cacheName);
-                                        }
-                                    })
-                                );
-                            })
-                        );
-                    });
-                `;
-
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-
-                navigator.serviceWorker.register(swUrl)
-                    .then(registration => {
-                        console.log('Service Worker registered:', registration);
-                    })
-                    .catch(error => {
-                        console.log('Service Worker registration failed:', error);
-                    });
+                navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZXZlbnQpIHsKICBldmVudC53YWl0VW50aWwoY2FjaGVzLm9wZW4oJ2lseW4tdjEnKS50aGVuKGZ1bmN0aW9uKGNhY2hlKSB7CiAgICByZXR1cm4gY2FjaGUuYWRkQWxsKFsnLyddKTsKICB9KSk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgZXZlbnQucmVzcG9uZFdpdGgoY2FjaGVzLm1hdGNoKGV2ZW50LnJlcXVlc3QpLnRoZW4oZnVuY3Rpb24ocmVzcG9uc2UpIHsKICAgIHJldHVybiByZXNwb25zZSB8fCBmZXRjaChldmVudC5yZXF1ZXN0KTsKICB9KSk7Cn0pOw==')
+                    .then(() => console.log('Service Worker Registered'))
+                    .catch(err => console.log('Service Worker Registration Failed:', err));
             });
         }
 
-        // Create manifest dynamically
-        const manifest = {
+        // Create Manifest dynamically
+        const manifestData = {
             name: 'Ilyn - Fashion Muslim Modern',
             short_name: 'Ilyn',
             description: 'Elegansi Muslim, Inspirasi Ilyn',
-            start_url: '/',
+            start_url: '.',
             display: 'standalone',
             background_color: '#A1BC98',
             theme_color: '#A1BC98',
-            orientation: 'portrait',
             icons: [
                 {
-                    src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%23A1BC98" width="200" height="200"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="80" fill="white" font-family="Arial, sans-serif" font-weight="bold">ILYN</text></svg>',
+                    src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij48cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgZmlsbD0iI0ExQkM5OCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjEyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JPC90ZXh0Pjwvc3ZnPg==',
                     sizes: '192x192',
-                    type: 'image/svg+xml',
-                    purpose: 'any maskable'
-                },
-                {
-                    src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect fill="%23A1BC98" width="512" height="512"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="200" fill="white" font-family="Arial, sans-serif" font-weight="bold">ILYN</text></svg>',
-                    sizes: '512x512',
-                    type: 'image/svg+xml',
-                    purpose: 'any maskable'
+                    type: 'image/svg+xml'
                 }
             ]
         };
-
-        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-        const manifestURL = URL.createObjectURL(manifestBlob);
+        
+        const stringManifest = JSON.stringify(manifestData);
+        const blob = new Blob([stringManifest], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(blob);
         document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
 
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', init);
-        
-        // Add animation to filter buttons
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('filter-btn')) {
-                anime({
-                    targets: e.target,
-                    scale: [1, 0.95, 1],
-                    duration: 300,
-                    easing: 'easeOutElastic(1, .5)'
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            initAnimations();
+            renderProducts();
+            updateCartBadge();
+            updateNotificationBadge();
+            loadProfile();
+            
+            // Simulate order status update (for demo)
+            setInterval(() => {
+                orders.forEach(order => {
+                    if (order.status === 'dikemas' && Math.random() > 0.8) {
+                        order.status = 'dikirim';
+                    } else if (order.status === 'dikirim' && Math.random() > 0.9) {
+                        order.status = 'sampai';
+                    }
                 });
-            }
+                Storage.set('orders', orders);
+            }, 30000); // Check every 30 seconds
         });
-
-        // Smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Add touch feedback
-        document.addEventListener('touchstart', (e) => {
-            if (e.target.classList.contains('category-card') || 
-                e.target.classList.contains('product-card') ||
-                e.target.classList.contains('notification-item') ||
-                e.target.classList.contains('store-card')) {
-                e.target.style.transform = 'scale(0.98)';
-            }
-        });
-
-        document.addEventListener('touchend', (e) => {
-            if (e.target.classList.contains('category-card') || 
-                e.target.classList.contains('product-card') ||
-                e.target.classList.contains('notification-item') ||
-                e.target.classList.contains('store-card')) {
-                e.target.style.transform = 'scale(1)';
-            }
-        });
-
-        // Prevent default pull-to-refresh on mobile
-        document.body.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 1 || document.body.scrollTop !== 0) {
-                return;
-            }
-            e.preventDefault();
-        }, { passive: false });
-
-        // Auto-hide address bar on mobile
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                window.scrollTo(0, 1);
-            }, 0);
-        });
-
-        // Add entrance animation for cards
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    anime({
-                        targets: entry.target,
-                        translateY: [30, 0],
-                        opacity: [0, 1],
-                        duration: 600,
-                        easing: 'easeOutQuad'
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards after they're rendered
-        setTimeout(() => {
-            document.querySelectorAll('.product-card, .store-card, .notification-item').forEach(card => {
-                observer.observe(card);
-            });
-        }, 100);
-
-        // Add loading state simulation
-        function showLoading() {
-            const loadingOverlay = document.createElement('div');
-            loadingOverlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(161, 188, 152, 0.9);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 9999;
-                color: white;
-                font-size: 1.5rem;
-            `;
-            loadingOverlay.innerHTML = '<div><i class="bi bi-arrow-repeat" style="animation: spin 1s linear infinite;"></i> Memuat...</div>';
-            document.body.appendChild(loadingOverlay);
-
-            setTimeout(() => {
-                loadingOverlay.style.opacity = '0';
-                loadingOverlay.style.transition = 'opacity 0.3s';
-                setTimeout(() => loadingOverlay.remove(), 300);
-            }, 800);
-        }
-
-        // Add spin animation for loading
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Show loading on page transitions
-        const originalShowPage = showPage;
-        showPage = function(page) {
-            if (page !== currentPage) {
-                showLoading();
-                setTimeout(() => originalShowPage(page), 300);
-            }
-        };
-
-        // Add welcome animation
-        window.addEventListener('load', () => {
-            anime({
-                targets: '.app-header',
-                translateY: [-100, 0],
-                opacity: [0, 1],
-                duration: 800,
-                easing: 'easeOutExpo'
-            });
-        });
-
-        console.log('🕌 Ilyn PWA - Fashion Muslim Modern');
-        console.log('✨ Elegansi Muslim, Inspirasi Ilyn');
     </script>
 </body>
-  </html>
+</html>
