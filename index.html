@@ -208,17 +208,18 @@
         /* Notification Badge */
         .notif-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: 0;
+            right: 50%;
+            transform: translateX(15px);
             background: #e74c3c;
             color: white;
             border-radius: 50%;
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
         }
         
@@ -571,24 +572,12 @@
                     <label class="form-label fw-bold"><i class="fas fa-th-large"></i> Jenis Produk</label>
                     <div class="d-flex flex-wrap">
                         <button class="filter-btn-type active" data-filter-type="all">Semua</button>
-                        <button class="filter-btn-type" data-filter-type="koko">
-                            <i class="fas fa-tshirt"></i> Koko
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="gamis">
-                            <i class="fas fa-user-tie"></i> Gamis
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="sarung">
-                            <i class="fas fa-scroll"></i> Sarung
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="hijab">
-                            <i class="fas fa-head-side-virus"></i> Hijab
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="celana">
-                            <i class="fas fa-socks"></i> Celana
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="peci">
-                            <i class="fas fa-hat-cowboy"></i> Peci
-                        </button>
+                        <button class="filter-btn-type" data-filter-type="koko">Koko</button>
+                        <button class="filter-btn-type" data-filter-type="gamis">Gamis</button>
+                        <button class="filter-btn-type" data-filter-type="sarung">Sarung</button>
+                        <button class="filter-btn-type" data-filter-type="hijab">Hijab</button>
+                        <button class="filter-btn-type" data-filter-type="celana">Celana</button>
+                        <button class="filter-btn-type" data-filter-type="peci">Peci</button>
                     </div>
                 </div>
                 
@@ -699,10 +688,8 @@
                 <span>Beranda</span>
             </a>
             <a class="nav-item" onclick="showPage('notifications')">
-                <div style="position: relative; display: inline-block;">
-                    <i class="fas fa-bell"></i>
-                    <span class="notif-badge" id="notifBadge" style="display: none;">0</span>
-                </div>
+                <i class="fas fa-bell"></i>
+                <span class="notif-badge" id="notifBadge" style="display: none;">0</span>
                 <span>Notifikasi</span>
             </a>
             <a class="nav-item" onclick="showPage('stores')">
@@ -735,9 +722,9 @@
     <script>
         // Initialize Data
         const products = [
-            // Produk Pria - Koko (10 items)
+            // Produk Pria - Koko (10 items with uniform IDs: 101-110)
             {
-                id: 1,
+                id: 101,
                 name: 'Koko Premium Bordir',
                 category: 'pria',
                 type: 'koko',
@@ -747,7 +734,7 @@
                 description: 'Koko dengan bordir eksklusif, bahan katun premium'
             },
             {
-                id: 2,
+                id: 102,
                 name: 'Koko Lengan Pendek Modern',
                 category: 'pria',
                 type: 'koko',
@@ -757,7 +744,7 @@
                 description: 'Koko lengan pendek dengan desain modern dan nyaman'
             },
             {
-                id: 3,
+                id: 103,
                 name: 'Koko Putih Polos Elegant',
                 category: 'pria',
                 type: 'koko',
@@ -767,7 +754,7 @@
                 description: 'Koko putih polos dengan kerah shanghai'
             },
             {
-                id: 4,
+                id: 104,
                 name: 'Koko Hitam Premium',
                 category: 'pria',
                 type: 'koko',
@@ -777,7 +764,7 @@
                 description: 'Koko hitam dengan bahan premium dan detail mewah'
             },
             {
-                id: 5,
+                id: 105,
                 name: 'Koko Navy Kombinasi',
                 category: 'pria',
                 type: 'koko',
@@ -787,7 +774,7 @@
                 description: 'Koko navy dengan kombinasi warna elegan'
             },
             {
-                id: 6,
+                id: 106,
                 name: 'Koko Maroon Eksklusif',
                 category: 'pria',
                 type: 'koko',
@@ -797,7 +784,7 @@
                 description: 'Koko maroon dengan detail bordir mewah'
             },
             {
-                id: 7,
+                id: 107,
                 name: 'Koko Abu-abu Modern',
                 category: 'pria',
                 type: 'koko',
@@ -807,7 +794,7 @@
                 description: 'Koko abu-abu dengan desain minimalis modern'
             },
             {
-                id: 8,
+                id: 108,
                 name: 'Koko Coklat Klasik',
                 category: 'pria',
                 type: 'koko',
@@ -817,7 +804,7 @@
                 description: 'Koko coklat dengan sentuhan klasik'
             },
             {
-                id: 9,
+                id: 109,
                 name: 'Koko Hijau Olive',
                 category: 'pria',
                 type: 'koko',
@@ -827,7 +814,7 @@
                 description: 'Koko hijau olive trendy dan elegan'
             },
             {
-                id: 10,
+                id: 110,
                 name: 'Koko Lengan Panjang Premium',
                 category: 'pria',
                 type: 'koko',
@@ -837,9 +824,9 @@
                 description: 'Koko lengan panjang dengan bahan premium'
             },
             
-            // Produk Pria - Sarung (10 items - 5 new + 5 existing)
+            // Produk Pria - Sarung (10 items with uniform IDs: 201-210)
             {
-                id: 11,
+                id: 201,
                 name: 'Sarung Atlas Premium',
                 category: 'pria',
                 type: 'sarung',
@@ -849,7 +836,7 @@
                 description: 'Sarung atlas dengan motif tradisional modern'
             },
             {
-                id: 12,
+                id: 202,
                 name: 'Sarung Wadimor Jacquard',
                 category: 'pria',
                 type: 'sarung',
@@ -859,7 +846,7 @@
                 description: 'Sarung jacquard halus dengan motif eksklusif'
             },
             {
-                id: 13,
+                id: 203,
                 name: 'Sarung Sutra Premium',
                 category: 'pria',
                 type: 'sarung',
@@ -869,7 +856,7 @@
                 description: 'Sarung sutra mewah dengan kilau sempurna'
             },
             {
-                id: 14,
+                id: 204,
                 name: 'Sarung Gajah Duduk Classic',
                 category: 'pria',
                 type: 'sarung',
@@ -879,7 +866,7 @@
                 description: 'Sarung gajah duduk dengan kualitas terbaik'
             },
             {
-                id: 15,
+                id: 205,
                 name: 'Sarung Batik Kombinasi',
                 category: 'pria',
                 type: 'sarung',
@@ -889,7 +876,7 @@
                 description: 'Sarung batik dengan motif kombinasi unik'
             },
             {
-                id: 16,
+                id: 206,
                 name: 'Sarung Tenun Premium',
                 category: 'pria',
                 type: 'sarung',
@@ -899,7 +886,7 @@
                 description: 'Sarung tenun dengan detail halus'
             },
             {
-                id: 17,
+                id: 207,
                 name: 'Sarung Songket Mewah',
                 category: 'pria',
                 type: 'sarung',
@@ -909,7 +896,7 @@
                 description: 'Sarung songket untuk acara formal'
             },
             {
-                id: 18,
+                id: 208,
                 name: 'Sarung Polosan Premium',
                 category: 'pria',
                 type: 'sarung',
@@ -919,7 +906,7 @@
                 description: 'Sarung polos dengan bahan premium'
             },
             {
-                id: 19,
+                id: 209,
                 name: 'Sarung Kotak-kotak Modern',
                 category: 'pria',
                 type: 'sarung',
@@ -929,7 +916,7 @@
                 description: 'Sarung kotak-kotak dengan desain modern'
             },
             {
-                id: 20,
+                id: 210,
                 name: 'Sarung Instant Praktis',
                 category: 'pria',
                 type: 'sarung',
@@ -939,9 +926,9 @@
                 description: 'Sarung instant untuk kemudahan pemakaian'
             },
             
-            // Produk Pria - Celana (10 items - 5 new + 5 existing)
+            // Produk Pria - Celana (10 items with uniform IDs: 301-310)
             {
-                id: 21,
+                id: 301,
                 name: 'Celana Sirwal Panjang',
                 category: 'pria',
                 type: 'celana',
@@ -951,7 +938,7 @@
                 description: 'Celana sirwal nyaman untuk sholat dan aktivitas'
             },
             {
-                id: 22,
+                id: 302,
                 name: 'Celana Kargo Muslim',
                 category: 'pria',
                 type: 'celana',
@@ -961,7 +948,7 @@
                 description: 'Celana kargo dengan kantong praktis'
             },
             {
-                id: 23,
+                id: 303,
                 name: 'Celana Panjang Formal',
                 category: 'pria',
                 type: 'celana',
@@ -971,7 +958,7 @@
                 description: 'Celana formal untuk acara resmi'
             },
             {
-                id: 24,
+                id: 304,
                 name: 'Celana Kulot Panjang',
                 category: 'pria',
                 type: 'celana',
@@ -981,7 +968,7 @@
                 description: 'Celana kulot hitam dengan bahan berkualitas'
             },
             {
-                id: 25,
+                id: 305,
                 name: 'Celana Chino Muslim',
                 category: 'pria',
                 type: 'celana',
@@ -991,7 +978,7 @@
                 description: 'Celana chino dengan potongan modern'
             },
             {
-                id: 26,
+                id: 306,
                 name: 'Celana Training Muslim',
                 category: 'pria',
                 type: 'celana',
@@ -1001,7 +988,7 @@
                 description: 'Celana training untuk olahraga'
             },
             {
-                id: 27,
+                id: 307,
                 name: 'Celana Jogger Muslim',
                 category: 'pria',
                 type: 'celana',
@@ -1011,7 +998,7 @@
                 description: 'Celana jogger trendy dan nyaman'
             },
             {
-                id: 28,
+                id: 308,
                 name: 'Celana Panjang Katun',
                 category: 'pria',
                 type: 'celana',
@@ -1021,7 +1008,7 @@
                 description: 'Celana katun adem untuk sehari-hari'
             },
             {
-                id: 29,
+                id: 309,
                 name: 'Celana Kulot Lebar',
                 category: 'pria',
                 type: 'celana',
@@ -1031,7 +1018,7 @@
                 description: 'Celana kulot dengan potongan lebar'
             },
             {
-                id: 30,
+                id: 310,
                 name: 'Celana Pangsi Modern',
                 category: 'pria',
                 type: 'celana',
@@ -1041,9 +1028,9 @@
                 description: 'Celana pangsi dengan desain modern'
             },
             
-            // Produk Pria - Peci (10 items)
+            // Produk Pria - Peci (10 items with uniform IDs: 401-410)
             {
-                id: 31,
+                id: 401,
                 name: 'Peci Bordir Premium',
                 category: 'pria',
                 type: 'peci',
@@ -1053,7 +1040,7 @@
                 description: 'Peci dengan bordir eksklusif dan mewah'
             },
             {
-                id: 32,
+                id: 402,
                 name: 'Peci Rajut Modern',
                 category: 'pria',
                 type: 'peci',
@@ -1063,7 +1050,7 @@
                 description: 'Peci rajut dengan desain modern'
             },
             {
-                id: 33,
+                id: 403,
                 name: 'Peci Beludru Hitam',
                 category: 'pria',
                 type: 'peci',
@@ -1073,7 +1060,7 @@
                 description: 'Peci beludru hitam klasik'
             },
             {
-                id: 34,
+                id: 404,
                 name: 'Peci Songket Emas',
                 category: 'pria',
                 type: 'peci',
@@ -1083,7 +1070,7 @@
                 description: 'Peci songket dengan motif emas'
             },
             {
-                id: 35,
+                id: 405,
                 name: 'Peci Putih Polos',
                 category: 'pria',
                 type: 'peci',
@@ -1093,7 +1080,7 @@
                 description: 'Peci putih polos untuk sehari-hari'
             },
             {
-                id: 36,
+                id: 406,
                 name: 'Peci Turki Premium',
                 category: 'pria',
                 type: 'peci',
@@ -1103,7 +1090,7 @@
                 description: 'Peci turki dengan kualitas premium'
             },
             {
-                id: 37,
+                id: 407,
                 name: 'Peci Batik Kombinasi',
                 category: 'pria',
                 type: 'peci',
@@ -1113,7 +1100,7 @@
                 description: 'Peci dengan motif batik kombinasi'
             },
             {
-                id: 38,
+                id: 408,
                 name: 'Peci Navy Elegant',
                 category: 'pria',
                 type: 'peci',
@@ -1123,7 +1110,7 @@
                 description: 'Peci navy dengan tampilan elegan'
             },
             {
-                id: 39,
+                id: 409,
                 name: 'Peci Maroon Mewah',
                 category: 'pria',
                 type: 'peci',
@@ -1133,7 +1120,7 @@
                 description: 'Peci maroon untuk acara formal'
             },
             {
-                id: 40,
+                id: 410,
                 name: 'Peci Coklat Klasik',
                 category: 'pria',
                 type: 'peci',
@@ -1143,9 +1130,9 @@
                 description: 'Peci coklat dengan desain klasik'
             },
             
-            // Produk Wanita - Gamis (5 existing items remain at id 41-45)
+            // Produk Wanita - Gamis (5 items with uniform IDs: 501-505)
             {
-                id: 41,
+                id: 501,
                 name: 'Gamis Syari Elegant',
                 category: 'wanita',
                 type: 'gamis',
@@ -1155,7 +1142,7 @@
                 description: 'Gamis syari dengan bordir cantik dan bahan premium'
             },
             {
-                id: 42,
+                id: 502,
                 name: 'Gamis Polos Premium',
                 category: 'wanita',
                 type: 'gamis',
@@ -1165,7 +1152,7 @@
                 description: 'Gamis polos elegan dengan busui friendly'
             },
             {
-                id: 43,
+                id: 503,
                 name: 'Gamis Motif Floral',
                 category: 'wanita',
                 type: 'gamis',
@@ -1175,7 +1162,7 @@
                 description: 'Gamis dengan motif floral modern dan trendy'
             },
             {
-                id: 44,
+                id: 504,
                 name: 'Gamis Set Khimar',
                 category: 'wanita',
                 type: 'gamis',
@@ -1185,7 +1172,7 @@
                 description: 'Gamis lengkap dengan khimar matching'
             },
             {
-                id: 45,
+                id: 505,
                 name: 'Gamis Brukat Mewah',
                 category: 'wanita',
                 type: 'gamis',
@@ -1195,9 +1182,9 @@
                 description: 'Gamis brukat untuk acara spesial'
             },
             
-            // Produk Wanita - Hijab (10 items - keeping existing and adding variations)
+            // Produk Wanita - Hijab (10 items with uniform IDs: 601-610)
             {
-                id: 46,
+                id: 601,
                 name: 'Hijab Pashmina Silk',
                 category: 'wanita',
                 type: 'hijab',
@@ -1207,7 +1194,7 @@
                 description: 'Pashmina silk premium dengan berbagai pilihan warna'
             },
             {
-                id: 47,
+                id: 602,
                 name: 'Hijab Segi Empat Voal',
                 category: 'wanita',
                 type: 'hijab',
@@ -1217,7 +1204,7 @@
                 description: 'Hijab segi empat voal dengan bahan adem'
             },
             {
-                id: 48,
+                id: 603,
                 name: 'Hijab Instant Bergo',
                 category: 'wanita',
                 type: 'hijab',
@@ -1227,7 +1214,7 @@
                 description: 'Hijab instant praktis untuk aktivitas sehari-hari'
             },
             {
-                id: 49,
+                id: 604,
                 name: 'Hijab Khimar Syari',
                 category: 'wanita',
                 type: 'hijab',
@@ -1237,7 +1224,7 @@
                 description: 'Khimar syari untuk tampilan lebih menutup'
             },
             {
-                id: 50,
+                id: 605,
                 name: 'Hijab Paris Premium',
                 category: 'wanita',
                 type: 'hijab',
@@ -1245,6 +1232,56 @@
                 image: "assets/img/hijab/HIJAB10.JPG",
                 sizes: ['One Size'],
                 description: 'Hijab paris dengan bahan premium dan tidak mudah kusut'
+            },
+            {
+                id: 606,
+                name: 'Hijab Ceruti Premium',
+                category: 'wanita',
+                type: 'hijab',
+                price: 95000,
+                image: "assets/img/hijab/HIJAB6.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab ceruti dengan tekstur halus dan jatuh'
+            },
+            {
+                id: 607,
+                name: 'Hijab Maxmara Premium',
+                category: 'wanita',
+                type: 'hijab',
+                price: 110000,
+                image: "assets/img/hijab/HIJAB7.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab maxmara dengan bahan tebal dan tidak transparan'
+            },
+            {
+                id: 608,
+                name: 'Hijab Diamond Italiano',
+                category: 'wanita',
+                type: 'hijab',
+                price: 135000,
+                image: "assets/img/hijab/HIJAB8.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab diamond italiano dengan tekstur unik'
+            },
+            {
+                id: 609,
+                name: 'Hijab Jilbab Sport',
+                category: 'wanita',
+                type: 'hijab',
+                price: 125000,
+                image: "assets/img/hijab/HIJAB9.JPG",
+                sizes: ['S', 'M', 'L'],
+                description: 'Hijab sport untuk aktivitas olahraga'
+            },
+            {
+                id: 610,
+                name: 'Hijab Segiempat Motif',
+                category: 'wanita',
+                type: 'hijab',
+                price: 105000,
+                image: "assets/img/hijab/HIJAB10.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab segiempat dengan motif cantik dan elegan'
             }
         ];
 
@@ -1571,14 +1608,6 @@
             
             const genderIcon = product.category === 'pria' ? 'mars' : 'venus';
             const genderText = product.category === 'pria' ? 'PRIA' : 'WANITA';
-            const typeIcon = {
-                'koko': 'tshirt',
-                'gamis': 'user-tie',
-                'sarung': 'scroll',
-                'hijab': 'head-side-virus',
-                'celana': 'socks',
-                'peci': 'hat-cowboy'
-            };
             
             document.getElementById('productModalBody').innerHTML = `
                 <img src="${product.image}" class="w-100 rounded mb-3" alt="${product.name}">
@@ -1590,7 +1619,7 @@
                         <i class="fas fa-${genderIcon}"></i> ${genderText}
                     </span>
                     <span class="badge" style="background: var(--primary-color); color: white;">
-                        <i class="fas fa-${typeIcon[product.type]}"></i> ${product.type.toUpperCase()}
+                        ${product.type.toUpperCase()}
                     </span>
                 </div>
                 <div class="mb-3">
