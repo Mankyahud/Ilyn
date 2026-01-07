@@ -1,25 +1,54 @@
 {
-  "name": "Ilyn - Fashion Muslim Modern",
+  "id": "./",
+  "name": "Ilyn",
   "short_name": "Ilyn",
-  "description": "Elegansi Muslim, Inspirasi Ilyn",
-  "start_url": "/",
-  "scope": "/",
+  "description": "Ilyn adalah aplikasi fashion muslim modern yang menghadirkan koleksi busana elegan, modest, dan penuh inspirasi untuk pria dan wanita mulle mata kini. Dengan slogan Elegansi Muslin, Inspirasi Ilyn, Ilyn mengusung konsep gaya yang selaras dengan nilai, serta keindahan yang berpadu dengan kesederhanaan.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "background_color": "##007575",
+  "theme_color": "#DBB459",
   "orientation": "portrait",
-  "background_color": "#A1BC98",
-  "theme_color": "#A1BC98",
+  "lang": "id",
   "icons": [
     {
-      "src": "assets/logoandroid192x192.png",
+      "src": "icons/icon-192x192-A.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "assets/logoandroid512x512.png",
+      "src": "icons/icon-512x512-B.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/screenshot2.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Buka Beranda",
+      "short_name": "Home",
+      "url": "./index.html",
+      "icons": [
+        {
+          "src": "icons/icon-192x192-A.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    "productivity",
+    "utilities"
   ]
 }
