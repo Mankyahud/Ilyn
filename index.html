@@ -23,9 +23,9 @@
    
     <style>
         :root {
-            --primary-color: #A1BC98;
-            --secondary-color: #e4dcdc;
-            --layout-color: #E3DFC8;
+            --primary-color: #b1c1ac;
+            --secondary-color: #f2f1f1;
+            --layout-color: #e4e4e4;
             --dark-text: #2d3436;
             --light-text: #636e72;
         }
@@ -208,6 +208,24 @@
         /* Notification Badge */
         .notif-badge {
             position: absolute;
+            top: 0;
+            right: 50%;
+            transform: translateX(15px);
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
             top: -8px;
             right: -8px;
             background: #e74c3c;
@@ -255,6 +273,62 @@
         .store-distance {
             color: var(--primary-color);
             font-weight: 600;
+        }
+        
+        /* Cart Item */
+        .cart-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .cart-summary {
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            bottom: 80px;
         }
         
         /* Bottom Navigation */
@@ -351,6 +425,15 @@
             .nav-item span {
                 font-size: 0.65rem;
             }
+            
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .cart-item-image {
+                width: 100%;
+                height: 150px;
+            }
         }
 
         .app-logo {
@@ -373,6 +456,67 @@
         .btn-whatsapp:hover {
             background: #128C7E;
             color: white;
+        }
+        
+        .btn-add-to-cart {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add-to-cart:hover {
+            background: #8DAA82;
+            transform: scale(1.05);
+        }
+        
+        /* Size Selection */
+        .size-selection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .size-option {
+            min-width: 60px;
+            padding: 10px 20px;
+            border: 2px solid var(--layout-color);
+            background: white;
+            color: var(--dark-text);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .size-option:hover {
+            border-color: var(--primary-color);
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .size-option.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(161, 188, 152, 0.4);
+        }
+        
+        .size-option:active {
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 576px) {
+            .size-option {
+                min-width: 50px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -428,24 +572,12 @@
                     <label class="form-label fw-bold"><i class="fas fa-th-large"></i> Jenis Produk</label>
                     <div class="d-flex flex-wrap">
                         <button class="filter-btn-type active" data-filter-type="all">Semua</button>
-                        <button class="filter-btn-type" data-filter-type="koko">
-                            <i class="fas fa-tshirt"></i> Koko
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="gamis">
-                            <i class="fas fa-user-tie"></i> Gamis
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="sarung">
-                            <i class="fas fa-scroll"></i> Sarung
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="hijab">
-                            <i class="fas fa-head-side-virus"></i> Hijab
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="celana">
-                            <i class="fas fa-socks"></i> Celana
-                        </button>
-                        <button class="filter-btn-type" data-filter-type="peci">
-                            <i class="fas fa-hat-cowboy"></i> Peci
-                        </button>
+                        <button class="filter-btn-type" data-filter-type="koko">Koko</button>
+                        <button class="filter-btn-type" data-filter-type="gamis">Gamis</button>
+                        <button class="filter-btn-type" data-filter-type="sarung">Sarung</button>
+                        <button class="filter-btn-type" data-filter-type="hijab">Hijab</button>
+                        <button class="filter-btn-type" data-filter-type="celana">Celana</button>
+                        <button class="filter-btn-type" data-filter-type="peci">Peci</button>
                     </div>
                 </div>
                 
@@ -475,6 +607,27 @@
             <!-- Products Container -->
             <div class="container">
                 <div class="row" id="productsContainer"></div>
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cart-page" class="page">
+            <div class="container py-4">
+                <h3 class="mb-4"><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h3>
+                <div id="cartContainer"></div>
+                <div class="cart-summary" id="cartSummary" style="display: none;">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total Item:</span>
+                        <strong id="totalItems">0</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Total Harga:</span>
+                        <strong class="text-success" id="totalPrice">Rp 0</strong>
+                    </div>
+                    <button class="btn btn-primary-custom w-100" onclick="checkout()">
+                        <i class="fas fa-check"></i> Checkout via WhatsApp
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -536,8 +689,8 @@
             </a>
             <a class="nav-item" onclick="showPage('notifications')">
                 <i class="fas fa-bell"></i>
-                <span>Notifikasi</span>
                 <span class="notif-badge" id="notifBadge" style="display: none;">0</span>
+                <span>Notifikasi</span>
             </a>
             <a class="nav-item" onclick="showPage('stores')">
                 <i class="fas fa-store"></i>
@@ -569,51 +722,111 @@
     <script>
         // Initialize Data
         const products = [
-            // Produk Pria - Koko
+            // Produk Pria - Koko (10 items with uniform IDs: 101-110)
             {
-                id: 1,
-                name: 'Koko Premium Coklat',
+                id: 101,
+                name: 'Koko Premium Bordir',
                 category: 'pria',
                 type: 'koko',
-                price: 250000,
+                price: 350000,
                 image: "assets/img/koko/KOKO1.jpeg",
                 sizes: ['M', 'L', 'XL', 'XXL'],
-                description: 'Koko dengan motif eksklusif, bahan katun premium'
+                description: 'Koko dengan bordir eksklusif, bahan katun premium'
             },
             {
-                id: 2,
-                name: 'Koko Batik Coklat Modern',
+                id: 102,
+                name: 'Koko Lengan Pendek Modern',
                 category: 'pria',
                 type: 'koko',
-                price: 195000,
+                price: 280000,
                 image: "assets/img/koko/KOKO2.jpeg",
                 sizes: ['M', 'L', 'XL', 'XXL'],
-                description: 'Koko warna coklat dengan motif batik dengan desain modern dan nyaman'
+                description: 'Koko lengan pendek dengan desain modern dan nyaman'
             },
             {
-                id: 3,
-                name: 'Koko Hitam Aksen Batik',
+                id: 103,
+                name: 'Koko Putih Polos Elegant',
                 category: 'pria',
                 type: 'koko',
-                price: 120000,
-                image: "assets/img/koko/KOKO4.jpeg",
+                price: 320000,
+                image: "assets/img/koko/KOKO3.jpeg",
                 sizes: ['M', 'L', 'XL', 'XXL'],
-                description: 'Koko hitam aksen batik dengan kerah shanghai'
+                description: 'Koko putih polos dengan kerah shanghai'
             },
             {
-                id: 4,
+                id: 104,
                 name: 'Koko Hitam Premium',
                 category: 'pria',
                 type: 'koko',
-                price: 250000,
+                price: 380000,
                 image: "assets/img/koko/KOKO3.jpeg",
                 sizes: ['M', 'L', 'XL', 'XXL'],
                 description: 'Koko hitam dengan bahan premium dan detail mewah'
             },
-            
-            // Produk Pria - Sarung
             {
-                id: 5,
+                id: 105,
+                name: 'Koko Navy Kombinasi',
+                category: 'pria',
+                type: 'koko',
+                price: 365000,
+                image: "assets/img/koko/KOKO4.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko navy dengan kombinasi warna elegan'
+            },
+            {
+                id: 106,
+                name: 'Koko Maroon Eksklusif',
+                category: 'pria',
+                type: 'koko',
+                price: 395000,
+                image: "assets/img/koko/KOKO5.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko maroon dengan detail bordir mewah'
+            },
+            {
+                id: 107,
+                name: 'Koko Abu-abu Modern',
+                category: 'pria',
+                type: 'koko',
+                price: 310000,
+                image: "assets/img/koko/KOKO1.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko abu-abu dengan desain minimalis modern'
+            },
+            {
+                id: 108,
+                name: 'Koko Coklat Klasik',
+                category: 'pria',
+                type: 'koko',
+                price: 340000,
+                image: "assets/img/koko/KOKO7.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko coklat dengan sentuhan klasik'
+            },
+            {
+                id: 109,
+                name: 'Koko Hijau Olive',
+                category: 'pria',
+                type: 'koko',
+                price: 375000,
+                image: "assets/img/koko/KOKO4.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko hijau olive trendy dan elegan'
+            },
+            {
+                id: 110,
+                name: 'Koko Lengan Panjang Premium',
+                category: 'pria',
+                type: 'koko',
+                price: 420000,
+                image: "assets/img/koko/KOKO3.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Koko lengan panjang dengan bahan premium'
+            },
+            
+            // Produk Pria - Sarung (10 items with uniform IDs: 201-210)
+            {
+                id: 201,
                 name: 'Sarung Atlas Premium',
                 category: 'pria',
                 type: 'sarung',
@@ -623,7 +836,7 @@
                 description: 'Sarung atlas dengan motif tradisional modern'
             },
             {
-                id: 6,
+                id: 202,
                 name: 'Sarung Wadimor Jacquard',
                 category: 'pria',
                 type: 'sarung',
@@ -633,7 +846,7 @@
                 description: 'Sarung jacquard halus dengan motif eksklusif'
             },
             {
-                id: 7,
+                id: 203,
                 name: 'Sarung Sutra Premium',
                 category: 'pria',
                 type: 'sarung',
@@ -642,10 +855,80 @@
                 sizes: ['One Size'],
                 description: 'Sarung sutra mewah dengan kilau sempurna'
             },
-            
-            // Produk Pria - Celana
             {
-                id: 8,
+                id: 204,
+                name: 'Sarung Gajah Duduk Classic',
+                category: 'pria',
+                type: 'sarung',
+                price: 280000,
+                image: "assets/img/sarung/SARUNG1.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung gajah duduk dengan kualitas terbaik'
+            },
+            {
+                id: 205,
+                name: 'Sarung Batik Kombinasi',
+                category: 'pria',
+                type: 'sarung',
+                price: 320000,
+                image: "assets/img/sarung/SARUNG2.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung batik dengan motif kombinasi unik'
+            },
+            {
+                id: 206,
+                name: 'Sarung Tenun Premium',
+                category: 'pria',
+                type: 'sarung',
+                price: 380000,
+                image: "assets/img/sarung/SARUNG4.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung tenun dengan detail halus'
+            },
+            {
+                id: 207,
+                name: 'Sarung Songket Mewah',
+                category: 'pria',
+                type: 'sarung',
+                price: 520000,
+                image: "assets/img/sarung/SARUNG1.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung songket untuk acara formal'
+            },
+            {
+                id: 208,
+                name: 'Sarung Polosan Premium',
+                category: 'pria',
+                type: 'sarung',
+                price: 240000,
+                image: "assets/img/sarung/SARUNG2.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung polos dengan bahan premium'
+            },
+            {
+                id: 209,
+                name: 'Sarung Kotak-kotak Modern',
+                category: 'pria',
+                type: 'sarung',
+                price: 290000,
+                image: "assets/img/sarung/SARUNG4.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung kotak-kotak dengan desain modern'
+            },
+            {
+                id: 210,
+                name: 'Sarung Instant Praktis',
+                category: 'pria',
+                type: 'sarung',
+                price: 195000,
+                image: "assets/img/sarung/SARUNG1.jpeg",
+                sizes: ['One Size'],
+                description: 'Sarung instant untuk kemudahan pemakaian'
+            },
+            
+            // Produk Pria - Celana (10 items with uniform IDs: 301-310)
+            {
+                id: 301,
                 name: 'Celana Sirwal Panjang',
                 category: 'pria',
                 type: 'celana',
@@ -655,7 +938,7 @@
                 description: 'Celana sirwal nyaman untuk sholat dan aktivitas'
             },
             {
-                id: 9,
+                id: 302,
                 name: 'Celana Kargo Muslim',
                 category: 'pria',
                 type: 'celana',
@@ -665,7 +948,7 @@
                 description: 'Celana kargo dengan kantong praktis'
             },
             {
-                id: 10,
+                id: 303,
                 name: 'Celana Panjang Formal',
                 category: 'pria',
                 type: 'celana',
@@ -674,10 +957,8 @@
                 sizes: ['M', 'L', 'XL', 'XXL'],
                 description: 'Celana formal untuk acara resmi'
             },
-            
-            // Produk Pria - Celana & Peci
             {
-                id: 11,
+                id: 304,
                 name: 'Celana Kulot Panjang',
                 category: 'pria',
                 type: 'celana',
@@ -687,7 +968,69 @@
                 description: 'Celana kulot hitam dengan bahan berkualitas'
             },
             {
-                id: 12,
+                id: 305,
+                name: 'Celana Chino Muslim',
+                category: 'pria',
+                type: 'celana',
+                price: 235000,
+                image: "assets/img/celana/CELANA1.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana chino dengan potongan modern'
+            },
+            {
+                id: 306,
+                name: 'Celana Training Muslim',
+                category: 'pria',
+                type: 'celana',
+                price: 165000,
+                image: "assets/img/celana/CELANA2.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana training untuk olahraga'
+            },
+            {
+                id: 307,
+                name: 'Celana Jogger Muslim',
+                category: 'pria',
+                type: 'celana',
+                price: 190000,
+                image: "assets/img/celana/CELANA3.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana jogger trendy dan nyaman'
+            },
+            {
+                id: 308,
+                name: 'Celana Panjang Katun',
+                category: 'pria',
+                type: 'celana',
+                price: 175000,
+                image: "assets/img/celana/CELANA4.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana katun adem untuk sehari-hari'
+            },
+            {
+                id: 309,
+                name: 'Celana Kulot Lebar',
+                category: 'pria',
+                type: 'celana',
+                price: 155000,
+                image: "assets/img/celana/CELANA1.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana kulot dengan potongan lebar'
+            },
+            {
+                id: 310,
+                name: 'Celana Pangsi Modern',
+                category: 'pria',
+                type: 'celana',
+                price: 145000,
+                image: "assets/img/celana/CELANA2.jpeg",
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                description: 'Celana pangsi dengan desain modern'
+            },
+            
+            // Produk Pria - Peci (10 items with uniform IDs: 401-410)
+            {
+                id: 401,
                 name: 'Peci Bordir Premium',
                 category: 'pria',
                 type: 'peci',
@@ -697,7 +1040,7 @@
                 description: 'Peci dengan bordir eksklusif dan mewah'
             },
             {
-                id: 13,
+                id: 402,
                 name: 'Peci Rajut Modern',
                 category: 'pria',
                 type: 'peci',
@@ -706,10 +1049,90 @@
                 sizes: ['One Size'],
                 description: 'Peci rajut dengan desain modern'
             },
-            
-            // Produk Wanita - Gamis
             {
-                id: 14,
+                id: 403,
+                name: 'Peci Beludru Hitam',
+                category: 'pria',
+                type: 'peci',
+                price: 110000,
+                image: "assets/img/peci/Peci09.jpg",
+                sizes: ['One Size'],
+                description: 'Peci beludru hitam klasik'
+            },
+            {
+                id: 404,
+                name: 'Peci Songket Emas',
+                category: 'pria',
+                type: 'peci',
+                price: 145000,
+                image: "assets/img/peci/Peci10.jpg",
+                sizes: ['One Size'],
+                description: 'Peci songket dengan motif emas'
+            },
+            {
+                id: 405,
+                name: 'Peci Putih Polos',
+                category: 'pria',
+                type: 'peci',
+                price: 85000,
+                image: "assets/img/peci/Peci09.jpg",
+                sizes: ['One Size'],
+                description: 'Peci putih polos untuk sehari-hari'
+            },
+            {
+                id: 406,
+                name: 'Peci Turki Premium',
+                category: 'pria',
+                type: 'peci',
+                price: 165000,
+                image: "assets/img/peci/Peci10.jpg",
+                sizes: ['One Size'],
+                description: 'Peci turki dengan kualitas premium'
+            },
+            {
+                id: 407,
+                name: 'Peci Batik Kombinasi',
+                category: 'pria',
+                type: 'peci',
+                price: 125000,
+                image: "assets/img/peci/Peci09.jpg",
+                sizes: ['One Size'],
+                description: 'Peci dengan motif batik kombinasi'
+            },
+            {
+                id: 408,
+                name: 'Peci Navy Elegant',
+                category: 'pria',
+                type: 'peci',
+                price: 105000,
+                image: "assets/img/peci/Peci10.jpg",
+                sizes: ['One Size'],
+                description: 'Peci navy dengan tampilan elegan'
+            },
+            {
+                id: 409,
+                name: 'Peci Maroon Mewah',
+                category: 'pria',
+                type: 'peci',
+                price: 135000,
+                image: "assets/img/peci/Peci09.jpg",
+                sizes: ['One Size'],
+                description: 'Peci maroon untuk acara formal'
+            },
+            {
+                id: 410,
+                name: 'Peci Coklat Klasik',
+                category: 'pria',
+                type: 'peci',
+                price: 115000,
+                image: "assets/img/peci/Peci10.jpg",
+                sizes: ['One Size'],
+                description: 'Peci coklat dengan desain klasik'
+            },
+            
+            // Produk Wanita - Gamis (5 items with uniform IDs: 501-505)
+            {
+                id: 501,
                 name: 'Gamis Syari Elegant',
                 category: 'wanita',
                 type: 'gamis',
@@ -719,7 +1142,7 @@
                 description: 'Gamis syari dengan bordir cantik dan bahan premium'
             },
             {
-                id: 15,
+                id: 502,
                 name: 'Gamis Polos Premium',
                 category: 'wanita',
                 type: 'gamis',
@@ -729,7 +1152,7 @@
                 description: 'Gamis polos elegan dengan busui friendly'
             },
             {
-                id: 16,
+                id: 503,
                 name: 'Gamis Motif Floral',
                 category: 'wanita',
                 type: 'gamis',
@@ -739,7 +1162,7 @@
                 description: 'Gamis dengan motif floral modern dan trendy'
             },
             {
-                id: 17,
+                id: 504,
                 name: 'Gamis Set Khimar',
                 category: 'wanita',
                 type: 'gamis',
@@ -749,98 +1172,116 @@
                 description: 'Gamis lengkap dengan khimar matching'
             },
             {
-                id: 18,
-                name: 'Hijab Pashmina Shimmer',
+                id: 505,
+                name: 'Gamis Brukat Mewah',
                 category: 'wanita',
-                type: 'hijab',
+                type: 'gamis',
                 price: 680000,
-                image: "assets/img/hijab/HIJAB1.JPG",
+                image: "assets/img/gamis/GAMIS 1.JPG",
                 sizes: ['S', 'M', 'L', 'XL'],
-                description: 'Hijab dengan detail kaos untuk acara spesial'
+                description: 'Gamis brukat untuk acara spesial'
             },
             
-            // Produk Wanita - Hijab
+            // Produk Wanita - Hijab (10 items with uniform IDs: 601-610)
             {
-                id: 19,
+                id: 601,
                 name: 'Hijab Pashmina Silk',
                 category: 'wanita',
                 type: 'hijab',
                 price: 150000,
-                image: "assets/img/hijab/HIJAB6.JPG",
+                image: "assets/img/hijab/HIJAB1.JPG",
                 sizes: ['One Size'],
                 description: 'Pashmina silk premium dengan berbagai pilihan warna'
             },
             {
-                id: 20,
+                id: 602,
                 name: 'Hijab Segi Empat Voal',
                 category: 'wanita',
                 type: 'hijab',
                 price: 85000,
-                image: "assets/img/hijab/HIJAB7.JPG",
+                image: "assets/img/hijab/HIJAB2.JPG",
                 sizes: ['One Size'],
                 description: 'Hijab segi empat voal dengan bahan adem'
             },
             {
-                id: 21,
+                id: 603,
                 name: 'Hijab Instant Bergo',
                 category: 'wanita',
                 type: 'hijab',
                 price: 95000,
-                image: "assets/img/hijab/HIJAB8.JPG",
+                image: "assets/img/hijab/HIJAB3.JPG",
                 sizes: ['S', 'M', 'L'],
                 description: 'Hijab instant praktis untuk aktivitas sehari-hari'
             },
             {
-                id: 22,
+                id: 604,
                 name: 'Hijab Khimar Syari',
                 category: 'wanita',
                 type: 'hijab',
                 price: 180000,
-                image: "assets/img/hijab/HIJAB9.JPG",
+                image: "assets/img/hijab/HIJAB4.JPG",
                 sizes: ['S', 'M', 'L'],
                 description: 'Khimar syari untuk tampilan lebih menutup'
             },
             {
-                id: 23,
+                id: 605,
                 name: 'Hijab Paris Premium',
                 category: 'wanita',
                 type: 'hijab',
                 price: 120000,
-                image: "assets/img/hijab/HIJAB10.JPG",
+                image: "assets/img/hijab/HIJAB5.JPG",
                 sizes: ['One Size'],
                 description: 'Hijab paris dengan bahan premium dan tidak mudah kusut'
             },
-            
-            // Produk Wanita - Hijab
             {
-                id: 24,
-                name: 'Hijab Pashmina Kaos',
+                id: 606,
+                name: 'Hijab Ceruti Premium',
                 category: 'wanita',
                 type: 'hijab',
-                price: 180000,
-                image: "assets/img/hijab/HIJAB4.JPG",
-                sizes: ['S', 'M', 'L', 'XL'],
-                description: 'Celana kulot longgar dan nyaman untuk muslimah'
+                price: 95000,
+                image: "assets/img/hijab/HIJAB6.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab ceruti dengan tekstur halus dan jatuh'
             },
             {
-                id: 25,
-                name: 'Hijab Bella Square',
+                id: 607,
+                name: 'Hijab Maxmara Premium',
                 category: 'wanita',
                 type: 'hijab',
-                price: 220000,
-                image: "assets/img/hijab/HIJAB5.JPG",
-                sizes: ['S', 'M', 'L', 'XL'],
-                description: 'Celana plisket dengan model elegan dan modern'
+                price: 110000,
+                image: "assets/img/hijab/HIJAB7.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab maxmara dengan bahan tebal dan tidak transparan'
             },
             {
-                id: 26,
-                name: 'Hijab Pashmina Plisket',
+                id: 608,
+                name: 'Hijab Diamond Italiano',
                 category: 'wanita',
                 type: 'hijab',
-                price: 195000,
-                image: "assets/img/hijab/HIJAB2.JPG",
-                sizes: ['S', 'M', 'L', 'XL'],
-                description: 'Celana dengan model rok untuk tampilan feminin'
+                price: 135000,
+                image: "assets/img/hijab/HIJAB8.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab diamond italiano dengan tekstur unik'
+            },
+            {
+                id: 609,
+                name: 'Hijab Jilbab Sport',
+                category: 'wanita',
+                type: 'hijab',
+                price: 125000,
+                image: "assets/img/hijab/HIJAB9.JPG",
+                sizes: ['S', 'M', 'L'],
+                description: 'Hijab sport untuk aktivitas olahraga'
+            },
+            {
+                id: 610,
+                name: 'Hijab Segiempat Motif',
+                category: 'wanita',
+                type: 'hijab',
+                price: 105000,
+                image: "assets/img/hijab/HIJAB10.JPG",
+                sizes: ['One Size'],
+                description: 'Hijab segiempat dengan motif cantik dan elegan'
             }
         ];
 
@@ -908,6 +1349,135 @@
             getProfile: () => JSON.parse(localStorage.getItem('profile') || '{}'),
             setProfile: (profile) => localStorage.setItem('profile', JSON.stringify(profile))
         };
+
+        // Cart Management
+        let cart = Storage.get('cart');
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            Storage.set('cart', cart);
+            updateCartBadge();
+            showToast('Produk ditambahkan ke keranjang!');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            Storage.set('cart', cart);
+            updateCartBadge();
+            loadCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    Storage.set('cart', cart);
+                    loadCart();
+                }
+            }
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function loadCart() {
+            const container = document.getElementById('cartContainer');
+            const summary = document.getElementById('cartSummary');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Keranjang belanja kosong</p>
+                        <button class="btn btn-primary-custom mt-3" onclick="showPage('home')">
+                            <i class="fas fa-shopping-bag"></i> Mulai Belanja
+                        </button>
+                    </div>
+                `;
+                summary.style.display = 'none';
+                return;
+            }
+            
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-info">
+                        <h6 class="mb-1">${item.name}</h6>
+                        <p class="text-muted small mb-2">${item.description}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong class="text-success">Rp ${item.price.toLocaleString('id-ID')}</strong>
+                            <button class="btn btn-sm btn-danger" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="mx-3"><strong>${item.quantity}</strong></span>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalPrice').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+            summary.style.display = 'block';
+        }
+
+        function checkout() {
+            const profile = Storage.getProfile();
+            
+            if (!profile.name || !profile.phone) {
+                alert('Silakan lengkapi profil Anda terlebih dahulu');
+                showPage('profile');
+                return;
+            }
+            
+            let message = `Halo, saya ${profile.name} ingin memesan:%0A%0A`;
+            
+            cart.forEach(item => {
+                message += `${item.name}%0A`;
+                message += `Jumlah: ${item.quantity}%0A`;
+                message += `Harga: Rp ${(item.price * item.quantity).toLocaleString('id-ID')}%0A%0A`;
+            });
+            
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `Total: Rp ${totalPrice.toLocaleString('id-ID')}%0A%0A`;
+            message += `Alamat: ${profile.address}%0A`;
+            message += `No. HP: ${profile.phone}`;
+            
+            window.open(`https://wa.me/6282xxxxxxxx?text=${message}`, '_blank');
+        }
 
         // Initialize
         let profile = Storage.getProfile();
@@ -1013,7 +1583,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="product-price">Rp ${product.price.toLocaleString('id-ID')}</span>
                                 <button class="btn btn-sm btn-primary-custom" onclick="event.stopPropagation(); showProductDetail(${product.id})">
-                                    <i class="fas fa-info-circle"></i>
+                                    <i class="fas fa-info-circle"></i> Detail
                                 </button>
                             </div>
                         </div>
@@ -1038,14 +1608,6 @@
             
             const genderIcon = product.category === 'pria' ? 'mars' : 'venus';
             const genderText = product.category === 'pria' ? 'PRIA' : 'WANITA';
-            const typeIcon = {
-                'koko': 'tshirt',
-                'gamis': 'user-tie',
-                'sarung': 'scroll',
-                'hijab': 'head-side-virus',
-                'celana': 'socks',
-                'peci': 'hat-cowboy'
-            };
             
             document.getElementById('productModalBody').innerHTML = `
                 <img src="${product.image}" class="w-100 rounded mb-3" alt="${product.name}">
@@ -1057,26 +1619,87 @@
                         <i class="fas fa-${genderIcon}"></i> ${genderText}
                     </span>
                     <span class="badge" style="background: var(--primary-color); color: white;">
-                        <i class="fas fa-${typeIcon[product.type]}"></i> ${product.type.toUpperCase()}
+                        ${product.type.toUpperCase()}
                     </span>
                 </div>
                 <div class="mb-3">
-                    <strong>Ukuran Tersedia:</strong><br>
-                    ${product.sizes.map(size => `<span class="badge bg-light text-dark me-1">${size}</span>`).join('')}
+                    <strong><i class="fas fa-ruler"></i> Pilih Ukuran:</strong><br>
+                    <div class="size-selection mt-2">
+                        ${product.sizes.map(size => `
+                            <button class="size-option" onclick="selectSize(this, '${size}', ${product.id})">
+                                ${size}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <small class="text-muted d-block mt-2" id="selectedSizeText">Silakan pilih ukuran</small>
                 </div>
                 <h3 class="text-success mb-3">Rp ${product.price.toLocaleString('id-ID')}</h3>
                 <div class="contact-buttons">
-                    <a href="https://wa.me/6282xxxxxxxx?text=Halo, saya tertarik dengan produk ${encodeURIComponent(product.name)} seharga Rp ${product.price.toLocaleString('id-ID')}" 
-                       class="btn btn-whatsapp w-100 mb-2" target="_blank">
+                    <a href="#" id="whatsappBtn" class="btn btn-whatsapp w-100 mb-2" target="_blank" onclick="return checkSizeSelected()">
                         <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
                     </a>
-                    <a href="tel:0284123456" class="btn btn-primary-custom w-100">
+                    <a href="tel:0284123456" class="btn btn-outline-primary w-100">
                         <i class="fas fa-phone"></i> Hubungi Toko
                     </a>
                 </div>
             `;
             
             modal.show();
+        }
+        
+        let selectedSize = null;
+        let selectedProductId = null;
+        
+        function selectSize(button, size, productId) {
+            // Remove active class from all size buttons
+            document.querySelectorAll('.size-option').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Store selected size
+            selectedSize = size;
+            selectedProductId = productId;
+            
+            // Update text
+            document.getElementById('selectedSizeText').innerHTML = `<i class="fas fa-check-circle text-success"></i> Ukuran terpilih: <strong>${size}</strong>`;
+            
+            // Update WhatsApp link
+            const product = products.find(p => p.id === productId);
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            whatsappBtn.href = `https://wa.me/6289509631956?text=Halo, saya tertarik dengan produk ${encodeURIComponent(product.name)} dengan ukuran ${size} seharga Rp ${product.price.toLocaleString('id-ID')}`;
+            
+            // Add animation
+            anime({
+                targets: button,
+                scale: [1, 1.1, 1],
+                duration: 300,
+                easing: 'easeInOutQuad'
+            });
+        }
+        
+        function checkSizeSelected() {
+            if (!selectedSize) {
+                showToast('⚠️ Silakan pilih ukuran terlebih dahulu');
+                
+                // Shake animation for size buttons
+                anime({
+                    targets: '.size-selection',
+                    translateX: [
+                        { value: -10, duration: 100 },
+                        { value: 10, duration: 100 },
+                        { value: -10, duration: 100 },
+                        { value: 10, duration: 100 },
+                        { value: 0, duration: 100 }
+                    ],
+                    easing: 'easeInOutSine'
+                });
+                
+                return false;
+            }
+            return true;
         }
 
         // Profile
@@ -1226,7 +1849,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="product-price">Rp ${product.price.toLocaleString('id-ID')}</span>
                                 <button class="btn btn-sm btn-primary-custom" onclick="event.stopPropagation(); showProductDetail(${product.id})">
-                                    <i class="fas fa-info-circle"></i>
+                                    <i class="fas fa-info-circle"></i> Detail
                                 </button>
                             </div>
                         </div>
