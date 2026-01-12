@@ -9,6 +9,7 @@ const urlsToCache = [
   `${BASE_URL}manifest.json`,
   `${BASE_URL}assets/logoandroid192x192.png`,
   `${BASE_URL}assets/logoandroid512x512.png`,
+  `${BASE_URL}assets/img/koko/KOKO1.jpeg`,
 ];
 
 // Install Service Worker & simpan file ke cache
