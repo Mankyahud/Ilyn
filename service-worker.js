@@ -10,6 +10,25 @@ const urlsToCache = [
   `${BASE_URL}assets/logoandroid192x192.png`,
   `${BASE_URL}assets/logoandroid512x512.png`,
   `${BASE_URL}assets/img/koko/KOKO1.jpeg`,
+  `${BASE_URL}assets/img/koko/KOKO2.jpeg`,
+  `${BASE_URL}assets/img/koko/KOKO3.jpeg`,
+  `${BASE_URL}assets/img/koko/KOKO4.jpeg`,
+  `${BASE_URL}assets/img/koko/KOKO5.jpeg`,
+  `${BASE_URL}assets/img/koko/KOKO7.jpeg`,
+  `${BASE_URL}assets/img/sarung/SARUNG1.jpeg`,
+  `${BASE_URL}assets/img/sarung/SARUNG2.jpeg`,
+  `${BASE_URL}assets/img/sarung/SARUNG4.jpeg`,
+  `${BASE_URL}assets/img/celana/CELANA3.jpeg`,
+  `${BASE_URL}assets/img/celana/CELANA1.jpeg`,
+  `${BASE_URL}assets/img/celana/CELANA2.jpeg`,
+  `${BASE_URL}assets/img/celana/CELANA4.jpeg`,
+  `${BASE_URL}assets/img/peci/Peci09.jpeg`,
+  `${BASE_URL}assets/img/peci/Peci10.jpeg`,
+  `${BASE_URL}assets/img/gamis/GAMIS1.JPG`,
+  `${BASE_URL}assets/img/gamis/GAMIS2.JPG`,
+  `${BASE_URL}assets/img/gamis/GAMIS5.JPG`,
+  `${BASE_URL}assets/img/gamis/GAMIS8.JPG`,
+
 ];
 
 // Install Service Worker & simpan file ke cache
