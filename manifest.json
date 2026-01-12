@@ -41,7 +41,7 @@
       "url": "./index.html",
       "icons": [
         {
-          "src": "assets/logoandroid192x192",
+          "src": "assets/logoandroid192x192.png",
           "sizes": "192x192"
         }
       ]
