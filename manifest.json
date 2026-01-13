@@ -26,12 +26,12 @@
   ],
   "screenshots": [
     {
-      "src": "./assets/screenshot1.png",
+      "src": "assets/screenshot1.png",
       "sizes": "1080x1920",
       "type": "image/png"
     },
     {
-      "src": "./assets/screenshot2.png",
+      "src": "assets/screenshot2.png",
       "sizes": "1080x1920",
       "type": "image/png"
     }
